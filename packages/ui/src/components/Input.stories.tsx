@@ -1,0 +1,23 @@
+import type { Meta, StoryObj } from '@storybook/react'
+import { Input } from './Input'
+
+const meta: Meta<typeof Input> = {
+  title: 'Components/Input',
+  component: Input,
+  args: {
+    label: 'Email',
+    placeholder: 'name@aioz.network',
+    helperText: 'We will not share your email',
+  },
+}
+
+export default meta
+type Story = StoryObj<typeof Input>
+
+export const Default: Story = {}
+
+export const WithError: Story = {
+  args: {
+    errorText: 'Email is invalid',
+  },
+}
