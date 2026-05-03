@@ -55,14 +55,17 @@
     "tamagui": "^2.0.0-rc.41"
   },
   "devDependencies": {
+    "@rollup/plugin-inject": "^5.0.5",
     "@storybook/react": "^8.6.14",
     "@storybook/react-vite": "^8.6.14",
+    "@types/node": "^25.6.0",
     "@types/react": "^19.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-native-web": "^0.20.0",
     "storybook": "^8.6.14",
     "tsup": "^8.1.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vite": "^6.4.2"
   }
 }
