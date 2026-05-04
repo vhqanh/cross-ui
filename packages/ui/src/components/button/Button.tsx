@@ -1,6 +1,9 @@
 import { forwardRef, type ElementRef } from 'react'
 import { GetProps, styled, Button as TamaguiButton, Text } from 'tamagui'
 
+/** Tamagui `Button` / `Text` dùng prop `size` cho bước cỡ font (token $0…$true), không phải chuỗi sm/md/lg. */
+const tamaguiChromeSize = { sm: '$3', md: '$4', lg: '$5' } as const
+
 // ─── Styled Primitives ────────────────────────────────────────────────────────
 
 const ButtonFrame = styled(TamaguiButton, {
@@ -54,10 +57,12 @@ const ButtonFrame = styled(TamaguiButton, {
     },
   } as const,
 
+  // `size` là prop gốc của Tamagui Button (bước font); GetProps styled không liệt kê đủ → ép kiểu
   defaultVariants: {
     variant: 'primary',
     buttonSize: 'md',
-  },
+    size: '$4',
+  } as never,
 })
 
 const ButtonText = styled(Text, {
@@ -116,6 +121,7 @@ export const Button = forwardRef<ElementRef<typeof ButtonFrame>, ButtonProps>(
         disabled={isDisabled}
         opacity={isDisabled ? 0.5 : undefined}
         {...rest}
+        size={tamaguiChromeSize[resolvedSize] as never}
       >
         {leftIcon}
         {typeof children === 'string' ? (
