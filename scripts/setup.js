@@ -59,7 +59,7 @@ installDeps(pm, PEER_DEPS)
 const consumerPkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'))
 consumerPkg.dependencies = consumerPkg.dependencies ?? {}
 consumerPkg.dependencies['@aioz/cross-ui'] =
-  consumerPkg.dependencies['@aioz/cross-ui'] ?? 'file:./ui/packages/ui'
+  consumerPkg.dependencies['@aioz/cross-ui'] ?? 'file:./packages/cross-ui/packages/ui'
 fs.writeFileSync('package.json', JSON.stringify(consumerPkg, null, 2) + '\n')
 console.log('✅ Added @aioz/cross-ui to package.json')
 

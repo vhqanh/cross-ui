@@ -23,6 +23,13 @@ export const Outline: Story = {
   },
 }
 
+export const Secondary: Story = {
+  args: {
+    variant: 'secondary',
+    children: 'Outline action',
+  },
+}
+
 export const Loading: Story = {
   args: {
     loading: true,

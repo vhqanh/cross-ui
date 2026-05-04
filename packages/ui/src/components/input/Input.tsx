@@ -23,7 +23,7 @@ const InputFrame = styled(TamaguiInput, {
   },
 
   variants: {
-    size: {
+    fieldSize: {
       sm: { fontSize: 13, paddingHorizontal: '$2.5', paddingVertical: '$1.5', borderRadius: '$2' },
       md: { fontSize: 15, paddingHorizontal: '$3', paddingVertical: '$2' },
       lg: { fontSize: 17, paddingHorizontal: '$4', paddingVertical: '$3', borderRadius: '$4' },
@@ -39,19 +39,20 @@ const InputFrame = styled(TamaguiInput, {
     },
   } as const,
 
-  defaultVariants: { size: 'md' },
+  defaultVariants: { fieldSize: 'md' },
 })
 
 type InputFrameProps = GetProps<typeof InputFrame>
 
-export interface InputProps extends InputFrameProps {
+export interface InputProps extends Omit<InputFrameProps, 'fieldSize'> {
   label?: string
   helperText?: string
   errorText?: string
+  size?: 'sm' | 'md' | 'lg'
 }
 
 export const Input = forwardRef<ElementRef<typeof InputFrame>, InputProps>(
-  ({ label, helperText, errorText, hasError, ...rest }, ref) => {
+  ({ label, helperText, errorText, hasError, size = 'md', ...rest }, ref) => {
     const showError = !!errorText
 
     return (
@@ -61,7 +62,7 @@ export const Input = forwardRef<ElementRef<typeof InputFrame>, InputProps>(
             {label}
           </Text>
         )}
-        <InputFrame ref={ref} hasError={showError || hasError} {...rest} />
+        <InputFrame ref={ref} fieldSize={size} hasError={showError || hasError} {...rest} />
         {showError ? (
           <Text fontSize={12} color="$danger500">
             {errorText}

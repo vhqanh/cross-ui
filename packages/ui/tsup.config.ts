@@ -12,7 +12,7 @@ export default defineConfig({
   treeshake: true,
   target: 'es2020',
   clean: true,
-  external: ['react', 'react-dom', 'react-native', 'react-native-web', 'tamagui', '@tamagui/core'],
+  external: ['react', 'react-dom', 'react-native', 'react-native-web'],
   esbuildOptions(options) {
     // Required for Tamagui to tree-shake correctly
     options.platform = 'neutral'

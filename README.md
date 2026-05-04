@@ -7,7 +7,7 @@ Cross-platform component library built with **Tamagui** — one source of truth 
 ## 📦 Repo Structure
 
 ```
-ui-kit/                         ← this repo (use as git submodule)
+cross-ui/                       ← this repo (cloned as a submodule inside consumer apps)
 ├── packages/
 │   └── ui/
 │       ├── src/
@@ -16,8 +16,6 @@ ui-kit/                         ← this repo (use as git submodule)
 │       │   └── index.ts        ← Single barrel export
 │       ├── package.json        ← name: "@aioz/cross-ui"
 │       └── tsup.config.ts      ← builds CJS + ESM + .d.ts
-├── scripts/
-│   └── setup.js                ← one-command setup for consumer repos
 └── package.json                ← pnpm workspace root
 ```
 
@@ -25,27 +23,67 @@ ui-kit/                         ← this repo (use as git submodule)
 
 ## 🚀 Adding to a consumer repo (as submodule)
 
+### Prerequisites
+
+- **Node.js** ≥ 18 (20 recommended)
+- **pnpm** ≥ 8 — required to install and build inside the submodule
+
+---
+
 ### Step 1 — Add the submodule
 
+From the **root of your consumer repo**:
+
 ```bash
-# From inside your consumer repo (mobile or web)
-git submodule add https://github.com/my-org/ui-kit.git ui
+git submodule add https://github.com/aioz-network/cross-ui.git packages/cross-ui
 git submodule update --init --recursive
 ```
 
-### Step 2 — Run the setup script
+---
+
+### Step 2 — Build the submodule
 
 ```bash
-node ui/scripts/setup.js
+cd packages/cross-ui
+pnpm install
+pnpm build
+cd ../..
 ```
 
-This script:
+> Run `pnpm dev` instead of `pnpm build` if you want **watch mode** while editing components.
 
-1. Installs all required peer dependencies (`tamagui`, `@tamagui/core`, `react`, etc.)
-2. Adds `"@aioz/cross-ui": "file:./ui/packages/ui"` to your `package.json`
-3. Runs install (pnpm / yarn / npm) to link the local package
+---
 
-### Step 3 — Wrap your app with UIProvider
+### Step 3 — Link to your consumer app
+
+Add `@aioz/cross-ui` to your consumer app's `package.json` manually:
+
+```json
+{
+  "dependencies": {
+    "@aioz/cross-ui": "file:./packages/cross-ui/packages/ui"
+  }
+}
+```
+
+Then run install from the **consumer root** to create the symlink in `node_modules`:
+
+```bash
+# pnpm
+pnpm install
+
+# yarn
+yarn install
+
+# npm
+npm install
+```
+
+> This step is required — without it the consumer cannot resolve `@aioz/cross-ui` even if the submodule is built.
+
+---
+
+### Step 4 — Wrap your app with UIProvider
 
 **React Native / Expo** (`App.tsx`):
 
@@ -79,36 +117,86 @@ export default function RootLayout({ children }) {
 
 ---
 
+### Step 5 — Run your consumer app
+
+Use your app's normal commands from the **consumer root**:
+
+- **Expo / React Native:** `npx expo start`, `pnpm android`, `pnpm ios`
+- **Next.js / Vite:** `pnpm dev`, `npm run dev`
+
+---
+
+### Cloning a repo that already has this submodule
+
+```bash
+# Option A — clone with submodules in one step
+git clone --recurse-submodules <consumer-repo-url>
+
+# Option B — already cloned, init submodule after
+git submodule update --init --recursive
+```
+
+Then build and link:
+
+```bash
+# 1. Build the submodule
+cd packages/cross-ui && pnpm install && pnpm build && cd ../..
+
+# 2. Install from consumer root to create the symlink
+pnpm install   # or yarn / npm
+```
+
+---
+
+### Troubleshooting
+
+| Issue                                 | What to try                                                                                                       |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `Cannot find module '@aioz/cross-ui'` | Make sure `file:./packages/cross-ui/packages/ui` is in `dependencies`, then run `pnpm install` from consumer root |
+| Errors from `dist/` or missing types  | `cd packages/cross-ui && pnpm install && pnpm build`                                                              |
+| `pnpm: command not found`             | `corepack enable && corepack prepare pnpm@10.8.0 --activate`                                                      |
+| Submodule folder empty                | `git submodule update --init --recursive` from consumer root                                                      |
+| Stale components after editing        | `cd packages/cross-ui && pnpm build` (or keep `pnpm dev` running)                                                 |
+
+---
+
+## 🔄 Keeping submodule up to date
+
+```bash
+cd packages/cross-ui
+git pull origin main
+pnpm install   # if deps changed
+pnpm build
+cd ../..
+git add packages/cross-ui
+git commit -m "chore: update cross-ui submodule"
+```
+
+Or in one line from consumer root:
+
+```bash
+git submodule update --remote packages/cross-ui
+cd packages/cross-ui && pnpm install && pnpm build && cd ../..
+```
+
+---
+
 ## 🧩 Usage
 
 ```tsx
 import { Button, Text, Input, Card, Badge, Avatar, Divider } from '@aioz/cross-ui'
 
 // Button
-<Button variant="primary" size="md" onPress={() => {}}>
-  Get Started
-</Button>
-
-<Button variant="outline" disabled>
-  Disabled
-</Button>
+<Button variant="primary" size="md" onPress={() => {}}>Get Started</Button>
+<Button variant="outline" disabled>Disabled</Button>
 
 // Text
 <Text variant="h1">Hello World</Text>
 <Text variant="body" muted>Secondary text</Text>
 
 // Input
-<Input
-  label="Email"
-  placeholder="you@example.com"
-  helperText="We'll never share your email."
-/>
-
-<Input
-  label="Password"
-  errorText="Password is required"
-  secureTextEntry
-/>
+<Input label="Email" placeholder="you@example.com" helperText="We'll never share your email." />
+<Input label="Password" errorText="Password is required" secureTextEntry />
 
 // Card
 <Card variant="elevated" padded="lg" hoverable>
@@ -136,7 +224,6 @@ import { Button, Text, Input, Card, Badge, Avatar, Divider } from '@aioz/cross-u
 ```tsx
 import { tokens } from '@aioz/cross-ui/tokens'
 
-// Use directly in inline styles or extend the Tamagui config
 tokens.space.$4 // → 16
 tokens.color.primary600 // → '#2563eb'
 tokens.radius.$3 // → 8
@@ -144,41 +231,22 @@ tokens.radius.$3 // → 8
 
 ---
 
-## 🔄 Keeping submodule up to date
-
-```bash
-# In consumer repo
-cd ui
-git pull origin main
-cd ..
-git add ui
-git commit -m "chore: update ui-kit submodule"
-```
-
-Or use the Git shortcut from the root:
-
-```bash
-git submodule update --remote ui
-```
-
----
-
 ## ➕ Adding new components
 
 1. Create `packages/ui/src/components/MyComponent.tsx`
-2. Export it from `packages/ui/src/index.ts`
-3. Run `pnpm build` to compile
+2. Export from `packages/ui/src/index.ts`
+3. Run `pnpm build` inside `packages/cross-ui`
 4. Push to `main` — consumer repos update via `git submodule update --remote`
 
 ---
 
-## 🛠 Local development of the kit itself
+## 🛠 Standalone development
 
 ```bash
 pnpm install
-pnpm dev          # watch mode — rebuilds on file changes
-pnpm typecheck    # TypeScript check
+pnpm dev          # watch mode
 pnpm build        # production build
+pnpm typecheck
 ```
 
 ---

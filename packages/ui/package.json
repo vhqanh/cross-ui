@@ -29,12 +29,10 @@
     "build-storybook": "storybook build"
   },
   "peerDependencies": {
-    "@tamagui/core": ">=2.0.0-rc.0",
     "react": ">=19.0.0",
     "react-dom": ">=19.0.0",
     "react-native": ">=0.81.0",
-    "react-native-web": ">=0.20.0",
-    "tamagui": ">=2.0.0-rc.0"
+    "react-native-web": ">=0.20.0"
   },
   "peerDependenciesMeta": {
     "react-dom": {
@@ -50,6 +48,7 @@
   "dependencies": {
     "@tamagui/animations-react-native": "^2.0.0-rc.41",
     "@tamagui/config": "^2.0.0-rc.41",
+    "@tamagui/core": "^2.0.0-rc.41",
     "@tamagui/font-inter": "^2.0.0-rc.41",
     "@tamagui/themes": "^2.0.0-rc.41",
     "tamagui": "^2.0.0-rc.41"
@@ -60,6 +59,7 @@
     "@storybook/react-vite": "^8.6.14",
     "@types/node": "^25.6.0",
     "@types/react": "^19.0.0",
+    "@types/react-native": "^0.81.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-native-web": "^0.20.0",
