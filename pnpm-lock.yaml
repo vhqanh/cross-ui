@@ -11,6 +11,9 @@ importers:
       '@changesets/cli':
         specifier: ^2.29.5
         version: 2.31.0(@types/node@25.6.0)
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(typescript@5.9.3)
@@ -32,6 +35,18 @@ importers:
       prettier:
         specifier: ^3.4.2
         version: 3.8.3
+      react:
+        specifier: ^19.1.0
+        version: 19.2.5
+      react-dom:
+        specifier: ^19.1.0
+        version: 19.2.5(react@19.2.5)
+      react-native:
+        specifier: '>=0.81.0'
+        version: 0.81.5(@babel/core@7.29.0)(@react-native/metro-config@0.85.2(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.5)
+      react-native-web:
+        specifier: ^0.20.0
+        version: 0.20.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       rimraf:
         specifier: ^5.0.5
         version: 5.0.10
@@ -59,6 +74,18 @@ importers:
       '@tamagui/themes':
         specifier: ^2.0.0-rc.41
         version: 2.0.0-rc.41(react-dom@19.2.5(react@19.2.5))(react-native@0.81.5(@babel/core@7.29.0)(@react-native/metro-config@0.85.2(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
+      react:
+        specifier: '>=19.0.0'
+        version: 19.2.5
+      react-dom:
+        specifier: '>=19.0.0'
+        version: 19.2.5(react@19.2.5)
+      react-native:
+        specifier: '>=0.81.0'
+        version: 0.81.5(@babel/core@7.29.0)(@react-native/metro-config@0.85.2(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.5)
+      react-native-web:
+        specifier: '>=0.20.0'
+        version: 0.20.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       tamagui:
         specifier: ^2.0.0-rc.41
         version: 2.0.0-rc.41(react-dom@19.2.5(react@19.2.5))(react-native@0.81.5(@babel/core@7.29.0)(@react-native/metro-config@0.85.2(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
@@ -78,18 +105,6 @@ importers:
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.14
-      react:
-        specifier: ^19.2.0
-        version: 19.2.5
-      react-dom:
-        specifier: ^19.2.0
-        version: 19.2.5(react@19.2.5)
-      react-native:
-        specifier: '>=0.81.0'
-        version: 0.81.5(@babel/core@7.29.0)(@react-native/metro-config@0.85.2(@babel/core@7.29.0))(@types/react@19.2.14)(react@19.2.5)
-      react-native-web:
-        specifier: ^0.20.0
-        version: 0.20.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       storybook:
         specifier: ^8.6.14
         version: 8.6.18(prettier@3.8.3)

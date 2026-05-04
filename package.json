@@ -18,6 +18,11 @@
     "build-storybook": "turbo run build-storybook --filter=@aioz/cross-ui"
   },
   "devDependencies": {
+    "@types/react": "^19.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-native": ">=0.81.0",
+    "react-native-web": "^0.20.0",
     "@changesets/cli": "^2.29.5",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",

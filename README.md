@@ -177,6 +177,7 @@ pnpm install   # or yarn / npm
 | `pnpm: command not found`             | `corepack enable && corepack prepare pnpm@10.8.0 --activate`                                                      |
 | Submodule folder empty                | `git submodule update --init --recursive` from consumer root                                                      |
 | Stale components after editing        | `cd packages/cross-ui && pnpm build` (or keep `pnpm dev` running)                                                 |
+| Expo / Metro: **Invalid hook call** / `useLayoutEffect` of null | Usually **two copies of React**. `react` is a workspace devDependency at the **repo root** only (not under `packages/ui`). After `pnpm install` in this repo, if the app still breaks, remove `packages/ui/node_modules` if present, and in the consumer use `metro.config.js` `watchFolders` + `resolver.extraNodeModules` so `react` / `react-native` resolve from the **app** `node_modules`. |
 
 ---
 
