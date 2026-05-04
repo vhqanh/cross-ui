@@ -52,6 +52,8 @@ cd ../..
 
 > Run `pnpm dev` instead of `pnpm build` if you want **watch mode** while editing components.
 
+**React Native 0.81+:** do not add `@types/react-native` — there is no matching `@types` release on npm for 0.81. TypeScript types ship inside the `react-native` package; `packages/ui` lists `react-native` under `devDependencies` so `pnpm install` at the submodule root (this repo) resolves correctly.
+
 ---
 
 ### Step 3 — Link to your consumer app

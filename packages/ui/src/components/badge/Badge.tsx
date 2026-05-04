@@ -1,6 +1,6 @@
-import { styled, View, Text } from 'tamagui'
+import { styled, TamaguiComponent, Text, View } from 'tamagui'
 
-const BadgeFrame = styled(View, {
+const BadgeFrame: TamaguiComponent = styled(View, {
   name: 'Badge',
   flexDirection: 'row',
   alignItems: 'center',

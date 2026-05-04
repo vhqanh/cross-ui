@@ -1,10 +1,10 @@
-import { styled, Input as TamaguiInput, View, Text, GetProps } from 'tamagui'
 import { forwardRef, type ElementRef } from 'react'
+import { GetProps, styled, TamaguiComponent, Input as TamaguiInput, Text, View } from 'tamagui'
 
 /** Prop `size` của Tamagui Input = bước token font ($0…$true), không phải sm/md/lg. */
 const tamaguiFieldChromeSize = { sm: '$3', md: '$4', lg: '$5' } as const
 
-const InputFrame = styled(TamaguiInput, {
+const InputFrame: TamaguiComponent = styled(TamaguiInput, {
   name: 'Input',
   fontFamily: '$body',
   fontSize: 15,
@@ -54,9 +54,12 @@ export interface InputProps extends Omit<InputFrameProps, 'fieldSize'> {
   size?: 'sm' | 'md' | 'lg'
 }
 
+type FieldSizeKey = keyof typeof tamaguiFieldChromeSize
+
 export const Input = forwardRef<ElementRef<typeof InputFrame>, InputProps>(
-  ({ label, helperText, errorText, hasError, size = 'md', ...rest }, ref) => {
+  ({ label, helperText, errorText, hasError, size: sizeProp = 'md', ...rest }, ref) => {
     const showError = !!errorText
+    const fieldSize = sizeProp as FieldSizeKey
 
     return (
       <View gap="$1.5" width="100%">
@@ -67,10 +70,10 @@ export const Input = forwardRef<ElementRef<typeof InputFrame>, InputProps>(
         )}
         <InputFrame
           ref={ref}
-          fieldSize={size}
+          fieldSize={fieldSize}
           hasError={showError || hasError}
           {...rest}
-          size={tamaguiFieldChromeSize[size] as never}
+          size={tamaguiFieldChromeSize[fieldSize] as never}
         />
         {showError ? (
           <Text fontSize={12} color="$danger500">

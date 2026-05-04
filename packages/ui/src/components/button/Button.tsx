@@ -1,12 +1,12 @@
 import { forwardRef, type ElementRef } from 'react'
-import { GetProps, styled, Button as TamaguiButton, Text } from 'tamagui'
+import { GetProps, styled, Button as TamaguiButton, TamaguiComponent, Text } from 'tamagui'
 
 /** Tamagui `Button` / `Text` dùng prop `size` cho bước cỡ font (token $0…$true), không phải chuỗi sm/md/lg. */
 const tamaguiChromeSize = { sm: '$3', md: '$4', lg: '$5' } as const
 
 // ─── Styled Primitives ────────────────────────────────────────────────────────
 
-const ButtonFrame = styled(TamaguiButton, {
+const ButtonFrame: TamaguiComponent = styled(TamaguiButton, {
   name: 'Button',
   borderRadius: '$3',
   minHeight: 40,
