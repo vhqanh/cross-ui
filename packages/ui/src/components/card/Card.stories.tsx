@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import type { ComponentProps } from 'react'
+import { Button } from '../button/Button'
+import { Text } from '../text/Text'
 import { Card, CardFooter, CardHeader } from './Card'
-import { Text } from './Text'
-import { Button } from './Button'
 
 const meta: Meta<typeof Card> = {
   title: 'Components/Card',
