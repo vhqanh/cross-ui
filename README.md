@@ -126,6 +126,24 @@ Use your app's normal commands from the **consumer root**:
 
 ---
 
+### IDE — Go to component source (Ctrl+click / ⌘+click)
+
+`package.json` của `@aioz/cross-ui` khai báo điều kiện **`development`** trong `exports`: TypeScript sẽ resolve type từ **`src/`** thay vì chỉ `dist/*.d.ts`, nên Cursor / VS Code nhảy thẳng vào component gốc.
+
+Trong **`tsconfig.json` của app consumer**, thêm:
+
+```json
+{
+  "compilerOptions": {
+    "customConditions": ["development"]
+  }
+}
+```
+
+Metro / Webpack / Vite vẫn dùng nhánh `import` / `require` → **`dist`** (không đọc `development`). Gói npm cũng ship kèm thư mục **`src`** (xem `files` trong `packages/ui/package.json`).
+
+---
+
 ### Cloning a repo that already has this submodule
 
 ```bash
