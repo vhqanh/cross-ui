@@ -1,5 +1,10 @@
 node_modules/
 dist/
+
+# Expo (nếu ai đó chạy `expo start` nhầm từ root repo này thay vì từ app consumer)
+.expo/
+expo-env.d.ts
+/tsconfig.json
 .turbo/
 storybook-static/
 *.tsbuildinfo
