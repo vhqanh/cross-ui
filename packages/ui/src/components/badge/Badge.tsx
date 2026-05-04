@@ -1,4 +1,5 @@
-import { styled, TamaguiComponent, Text, View } from 'tamagui'
+import type { TamaguiComponent } from 'tamagui'
+import { styled, Text, View } from 'tamagui'
 
 const BadgeFrame: TamaguiComponent = styled(View, {
   name: 'Badge',

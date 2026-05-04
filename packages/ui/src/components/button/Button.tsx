@@ -1,6 +1,6 @@
 import { forwardRef, type ElementRef } from 'react'
-import { GetProps, styled, Button as TamaguiButton, TamaguiComponent, Text } from 'tamagui'
-
+import type { GetProps, TamaguiComponent } from 'tamagui'
+import { styled, Button as TamaguiButton, Text } from 'tamagui'
 /** Tamagui `Button` / `Text` dùng prop `size` cho bước cỡ font (token $0…$true), không phải chuỗi sm/md/lg. */
 const tamaguiChromeSize = { sm: '$3', md: '$4', lg: '$5' } as const
 
@@ -116,7 +116,7 @@ export const Button = forwardRef<ElementRef<typeof ButtonFrame>, ButtonProps>(
     return (
       <ButtonFrame
         ref={ref}
-        variant={variant}
+        variant={resolvedVariant}
         buttonSize={resolvedSize}
         disabled={isDisabled}
         opacity={isDisabled ? 0.5 : undefined}

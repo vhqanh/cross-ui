@@ -1,4 +1,5 @@
-import { TamaguiProvider as CoreProvider, TamaguiProviderProps } from 'tamagui'
+import type { TamaguiProviderProps } from 'tamagui'
+import { TamaguiProvider as CoreProvider } from 'tamagui'
 import tamaguiConfig from '../tokens/tamagui.config'
 
 export interface UIProviderProps extends Omit<TamaguiProviderProps, 'config'> {

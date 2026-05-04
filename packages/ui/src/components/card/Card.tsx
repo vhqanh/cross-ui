@@ -1,4 +1,5 @@
-import { styled, Card as TamaguiCard, TamaguiComponent } from 'tamagui'
+import type { TamaguiComponent } from 'tamagui'
+import { styled, Card as TamaguiCard } from 'tamagui'
 
 export const Card: TamaguiComponent = styled(TamaguiCard, {
   name: 'Card',
