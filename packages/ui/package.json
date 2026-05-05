@@ -40,17 +40,13 @@
   "peerDependencies": {
     "react": ">=19.0.0",
     "react-dom": ">=19.0.0",
-    "react-native": ">=0.81.0",
-    "react-native-web": ">=0.20.0"
+    "react-native": ">=0.81.0"
   },
   "peerDependenciesMeta": {
     "react-dom": {
       "optional": true
     },
     "react-native": {
-      "optional": true
-    },
-    "react-native-web": {
       "optional": true
     }
   },
@@ -60,6 +56,7 @@
     "@tamagui/core": "^2.0.0-rc.41",
     "@tamagui/font-inter": "^2.0.0-rc.41",
     "@tamagui/themes": "^2.0.0-rc.41",
+    "react-native-web": "^0.20.0",
     "tamagui": "^2.0.0-rc.41"
   },
   "devDependencies": {

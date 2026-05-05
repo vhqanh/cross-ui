@@ -35,7 +35,7 @@ cross-ui/                       ← this repo (cloned as a submodule inside cons
 From the **root of your consumer repo**:
 
 ```bash
-git submodule add https://github.com/aioz-network/cross-ui.git packages/cross-ui
+git submodule add https://github.com/vhqanh/cross-ui
 git submodule update --init --recursive
 ```
 
@@ -44,7 +44,7 @@ git submodule update --init --recursive
 ### Step 2 — Build the submodule
 
 ```bash
-cd packages/cross-ui
+cd cross-ui
 pnpm install
 pnpm build
 cd ../..
@@ -128,20 +128,6 @@ Use your app's normal commands from the **consumer root**:
 
 ---
 
-### IDE — Go to component source (Ctrl+click / ⌘+click)
-
-`package.json` của `@aioz/cross-ui` khai báo điều kiện **`development`** trong `exports`: TypeScript sẽ resolve type từ **`src/`** thay vì chỉ `dist/*.d.ts`, nên Cursor / VS Code nhảy thẳng vào component gốc.
-
-Trong **`tsconfig.json` của app consumer**, thêm:
-
-```json
-{
-  "compilerOptions": {
-    "customConditions": ["development"]
-  }
-}
-```
-
 Metro / Webpack / Vite vẫn dùng nhánh `import` / `require` → **`dist`** (không đọc `development`). Gói npm cũng ship kèm thư mục **`src`** (xem `files` trong `packages/ui/package.json`).
 
 ---
@@ -170,13 +156,14 @@ pnpm install   # or yarn / npm
 
 ### Troubleshooting
 
-| Issue                                 | What to try                                                                                                       |
-| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `Cannot find module '@aioz/cross-ui'` | Make sure `file:./packages/cross-ui/packages/ui` is in `dependencies`, then run `pnpm install` from consumer root |
-| Errors from `dist/` or missing types  | `cd packages/cross-ui && pnpm install && pnpm build`                                                              |
-| `pnpm: command not found`             | `corepack enable && corepack prepare pnpm@10.8.0 --activate`                                                      |
-| Submodule folder empty                | `git submodule update --init --recursive` from consumer root                                                      |
-| Stale components after editing        | `cd packages/cross-ui && pnpm build` (or keep `pnpm dev` running)                                                 |
+| Issue                                                           | What to try                                                                                                                                                                                                                                                                                                                                                                                      |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `Cannot find module '@aioz/cross-ui'`                           | Make sure `file:./packages/cross-ui/packages/ui` is in `dependencies`, then run `pnpm install` from consumer root                                                                                                                                                                                                                                                                                |
+| Vite: `Failed to resolve import "react-native-web"`             | Reinstall deps from consumer root (`pnpm install`) so linked package deps are refreshed, then clear Vite cache (`rm -rf node_modules/.vite`) and restart dev server                                                                                                                                                                                                                              |
+| Errors from `dist/` or missing types                            | `cd packages/cross-ui && pnpm install && pnpm build`                                                                                                                                                                                                                                                                                                                                             |
+| `pnpm: command not found`                                       | `corepack enable && corepack prepare pnpm@10.8.0 --activate`                                                                                                                                                                                                                                                                                                                                     |
+| Submodule folder empty                                          | `git submodule update --init --recursive` from consumer root                                                                                                                                                                                                                                                                                                                                     |
+| Stale components after editing                                  | `cd packages/cross-ui && pnpm build` (or keep `pnpm dev` running)                                                                                                                                                                                                                                                                                                                                |
 | Expo / Metro: **Invalid hook call** / `useLayoutEffect` of null | Usually **two copies of React**. `react` is a workspace devDependency at the **repo root** only (not under `packages/ui`). After `pnpm install` in this repo, if the app still breaks, remove `packages/ui/node_modules` if present, and in the consumer use `metro.config.js` `watchFolders` + `resolver.extraNodeModules` so `react` / `react-native` resolve from the **app** `node_modules`. |
 
 ---
