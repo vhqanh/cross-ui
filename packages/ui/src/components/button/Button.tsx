@@ -1,10 +1,6 @@
 import { forwardRef, type ElementRef } from 'react'
 import type { GetProps, TamaguiComponent } from 'tamagui'
 import { styled, Button as TamaguiButton, Text } from 'tamagui'
-/** Tamagui `Button` / `Text` dùng prop `size` cho bước cỡ font (token $0…$true), không phải chuỗi sm/md/lg. */
-const tamaguiChromeSize = { sm: '$3', md: '$4', lg: '$5' } as const
-
-// ─── Styled Primitives ────────────────────────────────────────────────────────
 
 const ButtonFrame: TamaguiComponent = styled(TamaguiButton, {
   name: 'Button',
@@ -47,7 +43,7 @@ const ButtonFrame: TamaguiComponent = styled(TamaguiButton, {
         pressStyle: { backgroundColor: '$danger600', opacity: 0.9 },
       },
     },
-    buttonSize: {
+    size: {
       sm: { minHeight: 32, paddingHorizontal: '$3' },
       md: { minHeight: 40, paddingHorizontal: '$4' },
       lg: { minHeight: 48, paddingHorizontal: '$6' },
@@ -57,12 +53,10 @@ const ButtonFrame: TamaguiComponent = styled(TamaguiButton, {
     },
   } as const,
 
-  // `size` là prop gốc của Tamagui Button (bước font); GetProps styled không liệt kê đủ → ép kiểu
   defaultVariants: {
     variant: 'primary',
-    buttonSize: 'md',
-    size: '$4',
-  } as never,
+    size: 'md',
+  },
 })
 
 const ButtonText = styled(Text, {
@@ -92,8 +86,6 @@ const ButtonText = styled(Text, {
   },
 })
 
-// ─── Component ────────────────────────────────────────────────────────────────
-
 type ButtonFrameProps = GetProps<typeof ButtonFrame>
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
 type ButtonSize = 'sm' | 'md' | 'lg'
@@ -108,26 +100,12 @@ export interface ButtonProps extends Omit<ButtonFrameProps, 'variant' | 'buttonS
 }
 
 export const Button = forwardRef<ElementRef<typeof ButtonFrame>, ButtonProps>(
-  ({ children, leftIcon, rightIcon, variant, size, disabled, loading, ...rest }, ref) => {
-    const resolvedVariant = (variant ?? 'primary') as ButtonVariant
-    const resolvedSize = (size ?? 'md') as ButtonSize
-    const isDisabled = Boolean(disabled || loading)
-
+  ({ children, leftIcon, rightIcon, disabled, loading, ...props }: ButtonProps, ref) => {
     return (
-      <ButtonFrame
-        ref={ref}
-        variant={resolvedVariant}
-        buttonSize={resolvedSize}
-        disabled={isDisabled}
-        opacity={isDisabled ? 0.5 : undefined}
-        {...rest}
-        size={tamaguiChromeSize[resolvedSize] as never}
-      >
+      <ButtonFrame ref={ref} disabled={disabled || loading} {...props}>
         {leftIcon}
         {typeof children === 'string' ? (
-          <ButtonText variant={resolvedVariant} buttonSize={resolvedSize}>
-            {loading ? 'Loading...' : children}
-          </ButtonText>
+          <ButtonText {...props}>{loading ? 'Loading...' : children}</ButtonText>
         ) : (
           children
         )}

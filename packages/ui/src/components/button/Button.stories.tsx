@@ -6,8 +6,6 @@ const meta: Meta<typeof Button> = {
   component: Button,
   args: {
     children: 'Continue',
-    variant: 'primary',
-    size: 'md',
   },
 }
 
