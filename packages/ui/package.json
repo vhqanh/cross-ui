@@ -32,7 +32,7 @@
   ],
   "scripts": {
     "build": "pnpm exec tsup && pnpm exec tsc -p tsconfig.build.json",
-    "dev": "pnpm exec tsup --watch",
+    "dev": "pnpm exec tsup --watch --onSuccess \"pnpm exec tsc -p tsconfig.build.json\"",
     "typecheck": "tsc --noEmit",
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build"
