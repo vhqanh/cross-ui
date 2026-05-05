@@ -22,8 +22,8 @@
         "default": "./src/tokens/index.ts"
       },
       "types": "./dist/tokens/index.d.ts",
-      "require": "./dist/tokens.js",
-      "import": "./dist/tokens.mjs"
+      "require": "./dist/tokens/index.js",
+      "import": "./dist/tokens/index.mjs"
     }
   },
   "files": [
