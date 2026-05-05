@@ -38,10 +38,16 @@
     "build-storybook": "storybook build"
   },
   "peerDependencies": {
-    "react": ">=19.0.0",
-    "react-dom": ">=19.0.0",
-    "react-native": ">=0.81.0",
-    "react-native-web": ">=0.20.0"
+    "@tamagui/animations-react-native": "^2.0.0-rc.41",
+    "@tamagui/config": "^2.0.0-rc.41",
+    "@tamagui/core": "^2.0.0-rc.41",
+    "@tamagui/font-inter": "^2.0.0-rc.41",
+    "@tamagui/themes": "^2.0.0-rc.41",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-native": "^0.81.0",
+    "react-native-web": "^0.20.0",
+    "tamagui": "^2.0.0-rc.41"
   },
   "peerDependenciesMeta": {
     "react-dom": {
@@ -53,14 +59,6 @@
     "react-native-web": {
       "optional": true
     }
-  },
-  "dependencies": {
-    "@tamagui/animations-react-native": "^2.0.0-rc.41",
-    "@tamagui/config": "^2.0.0-rc.41",
-    "@tamagui/core": "^2.0.0-rc.41",
-    "@tamagui/font-inter": "^2.0.0-rc.41",
-    "@tamagui/themes": "^2.0.0-rc.41",
-    "tamagui": "^2.0.0-rc.41"
   },
   "devDependencies": {
     "@rollup/plugin-inject": "^5.0.5",

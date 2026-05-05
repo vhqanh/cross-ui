@@ -83,6 +83,28 @@ npm install
 
 > This step is required — without it the consumer cannot resolve `@aioz/cross-ui` even if the submodule is built.
 
+> Important: `@aioz/cross-ui` uses `peerDependencies` for runtime libraries (`react`, `react-dom`, `react-native`, `react-native-web`, `tamagui`, `@tamagui/*`). Do not rely on auto-install behavior from package managers. Always declare these packages in the consumer app and run install from the consumer root.
+
+Recommended consumer dependencies (example):
+
+```json
+{
+  "dependencies": {
+    "@aioz/cross-ui": "file:./packages/cross-ui/packages/ui",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-native": "^0.81.0",
+    "react-native-web": "^0.20.0",
+    "tamagui": "^2.0.0-rc.41",
+    "@tamagui/core": "^2.0.0-rc.41",
+    "@tamagui/config": "^2.0.0-rc.41",
+    "@tamagui/themes": "^2.0.0-rc.41",
+    "@tamagui/font-inter": "^2.0.0-rc.41",
+    "@tamagui/animations-react-native": "^2.0.0-rc.41"
+  }
+}
+```
+
 ---
 
 ### Step 4 — Wrap your app with UIProvider
@@ -165,6 +187,53 @@ pnpm install   # or yarn / npm
 | Submodule folder empty                                          | `git submodule update --init --recursive` from consumer root                                                                                                                                                                                                                                                                                                                                     |
 | Stale components after editing                                  | `cd packages/cross-ui && pnpm build` (or keep `pnpm dev` running)                                                                                                                                                                                                                                                                                                                                |
 | Expo / Metro: **Invalid hook call** / `useLayoutEffect` of null | Usually **two copies of React**. `react` is a workspace devDependency at the **repo root** only (not under `packages/ui`). After `pnpm install` in this repo, if the app still breaks, remove `packages/ui/node_modules` if present, and in the consumer use `metro.config.js` `watchFolders` + `resolver.extraNodeModules` so `react` / `react-native` resolve from the **app** `node_modules`. |
+
+---
+
+## ✅ Bundler Compatibility Matrix (Release Gate)
+
+Use this as a minimum gate before publishing a new version of `@aioz/cross-ui`.
+
+| Consumer | Dev | Production build | SSR smoke | Status now |
+| -------- | --- | ---------------- | --------- | ---------- |
+| Vite     | ✅  | ☐                | N/A       | Verified dev |
+| Expo     | ✅  | ☐                | N/A       | Verified dev |
+| Metro    | ✅  | ☐                | N/A       | Verified dev |
+| Next.js  | ☐   | ☐                | ☐         | Not verified |
+| Webpack  | ☐   | ☐                | N/A       | Not verified |
+| One      | ☐   | ☐                | ☐         | Not verified |
+
+### Minimum config per web bundler
+
+- Shared web requirements:
+  - Ensure all `@aioz/cross-ui` peers are declared in the consumer app (`react`, `react-dom`, `react-native`, `react-native-web`, `tamagui`, `@tamagui/*` used by this package).
+  - Clear cache after upgrading linked package: `rm -rf node_modules/.vite .next/cache`.
+  - Keep a single React instance (dedupe/alias if needed).
+
+- Vite:
+  - Keep `resolve.dedupe = ['react', 'react-dom']`.
+  - If needed, add `resolve.alias: { 'react-native': 'react-native-web' }`.
+
+- Next.js:
+  - Add `transpilePackages: ['@aioz/cross-ui']` in `next.config.js`.
+  - Add webpack alias `config.resolve.alias['react-native$'] = 'react-native-web'`.
+  - SSR smoke test a page that renders `UIProvider + Button + Input`.
+
+- Webpack:
+  - Add alias: `'react-native$': 'react-native-web'`.
+  - Ensure `mainFields` includes `'browser'` and `'module'` before `'main'`.
+
+- One:
+  - Verify both web and native entrypoints can render `UIProvider`.
+  - Ensure One resolves one copy of React and honors `react-native`/web aliases.
+
+### Recommended smoke test steps
+
+1. Install deps from consumer root.
+2. Render a tiny screen with `UIProvider`, `Button`, `Input`, `Card`.
+3. Run dev server and verify runtime has no `process is not defined`.
+4. Run production build and open output once.
+5. For SSR frameworks (Next.js, One), verify first server render has no runtime error.
 
 ---
 
