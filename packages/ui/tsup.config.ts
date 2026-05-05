@@ -6,7 +6,7 @@ export default defineConfig({
     tokens: 'src/tokens/index.ts',
   },
   format: ['cjs', 'esm'],
-  dts: true,
+  dts: false,
   sourcemap: true,
   splitting: false,
   treeshake: true,
