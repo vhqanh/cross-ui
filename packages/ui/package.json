@@ -8,27 +8,20 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "development": {
-        "types": "./src/index.ts",
-        "default": "./src/index.ts"
-      },
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
     },
     "./tokens": {
-      "development": {
-        "types": "./src/tokens/index.ts",
-        "default": "./src/tokens/index.ts"
-      },
       "types": "./dist/tokens/index.d.ts",
       "require": "./dist/tokens/index.js",
-      "import": "./dist/tokens/index.mjs"
+      "import": "./dist/tokens/index.mjs",
+      "default": "./dist/tokens/index.mjs"
     }
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "scripts": {
     "build": "pnpm exec tsup && pnpm exec tsc -p tsconfig.build.json",
@@ -40,13 +33,17 @@
   "peerDependencies": {
     "react": ">=19.0.0",
     "react-dom": ">=19.0.0",
-    "react-native": ">=0.81.0"
+    "react-native": ">=0.81.0",
+    "react-native-web": ">=0.20.0"
   },
   "peerDependenciesMeta": {
     "react-dom": {
       "optional": true
     },
     "react-native": {
+      "optional": true
+    },
+    "react-native-web": {
       "optional": true
     }
   },
@@ -56,7 +53,6 @@
     "@tamagui/core": "^2.0.0-rc.41",
     "@tamagui/font-inter": "^2.0.0-rc.41",
     "@tamagui/themes": "^2.0.0-rc.41",
-    "react-native-web": "^0.20.0",
     "tamagui": "^2.0.0-rc.41"
   },
   "devDependencies": {
