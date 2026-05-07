@@ -45,24 +45,7 @@ const GlassContainer = forwardRef<View, GlassContainerProps>(
         {size.width > 0 && size.height > 0 && (
           <Shader size={size} radius={radius} thickness={thickness} layout={layout} />
         )}
-        {contentStyle ? (
-          <View
-            style={[
-              {
-                display: 'flex',
-                position: 'relative',
-                width: '100%',
-                height: '100%',
-              },
-
-              contentStyle,
-            ]}
-          >
-            {children}
-          </View>
-        ) : (
-          children
-        )}
+        {contentStyle ? <View style={contentStyle}>{children}</View> : children}
       </View>
     )
   }

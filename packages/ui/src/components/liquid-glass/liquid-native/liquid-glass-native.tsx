@@ -34,7 +34,7 @@ export default function LiquidGlassNative({
     <GlassContainer
       ref={glassRef}
       onLayout={handleLayout}
-      size={size ?? { width: 0, height: 40 }}
+      size={size ?? { width: 0, height: 0 }}
       layout={layout ?? { x: 0, y: 0 }}
       thickness={thickness}
       radius={radius}

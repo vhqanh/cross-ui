@@ -318,7 +318,7 @@ export const Shader = ({ size, layout, thickness, radius, chromaticAberration }:
     )
 
     const builder = Skia.RuntimeShaderBuilder(shaderFilter)
-    builder.setUniform('resolution', [width, 40])
+    builder.setUniform('resolution', [width, height])
     builder.setUniform('radius', [radius])
     builder.setUniform('thickness', [thickness])
 
@@ -338,11 +338,11 @@ export const Shader = ({ size, layout, thickness, radius, chromaticAberration }:
         blurType="dark"
         blurAmount={1}
         overlayColor="rgba(255, 255, 255, 0.01)"
-        style={{ position: 'absolute', width, height: 40 }}
+        style={{ position: 'absolute', width, height }}
         {...(Platform.OS === 'android' ? { autoUpdate: true } : {})}
       />
       {!!glassFilter && (
-        <Canvas colorSpace="srgb" style={{ position: 'absolute', width, height: 40 }}>
+        <Canvas colorSpace="srgb" style={{ position: 'absolute', width, height }}>
           <BackdropFilter clip={clip} filter={<ImageFilter filter={glassFilter} />} />
         </Canvas>
       )}

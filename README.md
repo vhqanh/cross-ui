@@ -63,7 +63,7 @@ Add `@aioz/cross-ui` to your consumer app's `package.json` manually:
 ```json
 {
   "dependencies": {
-    "@aioz/cross-ui": "file:./packages/cross-ui/packages/ui"
+    "@aioz/cross-ui": "file:./cross-ui/packages/ui"
   }
 }
 ```
@@ -85,12 +85,12 @@ npm install
 
 > Important: `@aioz/cross-ui` uses `peerDependencies` for runtime libraries (`react`, `react-dom`, `react-native`, `react-native-web`, `tamagui`, `@tamagui/*`). Do not rely on auto-install behavior from package managers. Always declare these packages in the consumer app and run install from the consumer root.
 
-Recommended consumer dependencies (example):
+**Recommended consumer dependencies for web and extension (example):**
 
 ```json
 {
   "dependencies": {
-    "@aioz/cross-ui": "file:./packages/cross-ui/packages/ui",
+    "@aioz/cross-ui": "file:./cross-ui/packages/ui",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-native": "^0.81.0",
@@ -150,7 +150,7 @@ Use your app's normal commands from the **consumer root**:
 
 ---
 
-Metro / Webpack / Vite vẫn dùng nhánh `import` / `require` → **`dist`** (không đọc `development`). Gói npm cũng ship kèm thư mục **`src`** (xem `files` trong `packages/ui/package.json`).
+Metro / Webpack / Vite vẫn dùng nhánh `import` / `require` → `**dist`** (không đọc `development`). Gói npm cũng ship kèm thư mục `**src**` (xem `files` trong `packages/ui/package.json`).
 
 ---
 
@@ -168,7 +168,7 @@ Then build and link:
 
 ```bash
 # 1. Build the submodule
-cd packages/cross-ui && pnpm install && pnpm build && cd ../..
+cd cross-ui && pnpm install && pnpm build && cd ../
 
 # 2. Install from consumer root to create the symlink
 pnpm install   # or yarn / npm
@@ -177,6 +177,7 @@ pnpm install   # or yarn / npm
 ---
 
 ### Troubleshooting
+
 
 | Issue                                                           | What to try                                                                                                                                                                                                                                                                                                                                                                                      |
 | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -188,41 +189,40 @@ pnpm install   # or yarn / npm
 | Stale components after editing                                  | `cd packages/cross-ui && pnpm build` (or keep `pnpm dev` running)                                                                                                                                                                                                                                                                                                                                |
 | Expo / Metro: **Invalid hook call** / `useLayoutEffect` of null | Usually **two copies of React**. `react` is a workspace devDependency at the **repo root** only (not under `packages/ui`). After `pnpm install` in this repo, if the app still breaks, remove `packages/ui/node_modules` if present, and in the consumer use `metro.config.js` `watchFolders` + `resolver.extraNodeModules` so `react` / `react-native` resolve from the **app** `node_modules`. |
 
+
 ---
 
 ## ✅ Bundler Compatibility Matrix (Release Gate)
 
 Use this as a minimum gate before publishing a new version of `@aioz/cross-ui`.
 
-| Consumer | Dev | Production build | SSR smoke | Status now |
-| -------- | --- | ---------------- | --------- | ---------- |
-| Vite     | ✅  | ☐                | N/A       | Verified dev |
-| Expo     | ✅  | ☐                | N/A       | Verified dev |
-| Metro    | ✅  | ☐                | N/A       | Verified dev |
+
+| Consumer | Dev | Production build | SSR smoke | Status now   |
+| -------- | --- | ---------------- | --------- | ------------ |
+| Vite     | ✅   | ☐                | N/A       | Verified dev |
+| Expo     | ✅   | ☐                | N/A       | Verified dev |
+| Metro    | ✅   | ☐                | N/A       | Verified dev |
 | Next.js  | ☐   | ☐                | ☐         | Not verified |
-| Webpack  | ☐   | ☐                | N/A       | Not verified |
+| Webpack  | ✅   | ☐                | N/A       | Verified dev |
 | One      | ☐   | ☐                | ☐         | Not verified |
+
 
 ### Minimum config per web bundler
 
 - Shared web requirements:
-  - Ensure all `@aioz/cross-ui` peers are declared in the consumer app (`react`, `react-dom`, `react-native`, `react-native-web`, `tamagui`, `@tamagui/*` used by this package).
+  - Ensure all `@aioz/cross-ui` peers are declared in the consumer app (`react`, `react-dom`, `react-native`, `react-native-web`, `tamagui`, `@tamagui/`* used by this package).
   - Clear cache after upgrading linked package: `rm -rf node_modules/.vite .next/cache`.
   - Keep a single React instance (dedupe/alias if needed).
-
 - Vite:
   - Keep `resolve.dedupe = ['react', 'react-dom']`.
   - If needed, add `resolve.alias: { 'react-native': 'react-native-web' }`.
-
 - Next.js:
   - Add `transpilePackages: ['@aioz/cross-ui']` in `next.config.js`.
   - Add webpack alias `config.resolve.alias['react-native$'] = 'react-native-web'`.
   - SSR smoke test a page that renders `UIProvider + Button + Input`.
-
 - Webpack:
   - Add alias: `'react-native$': 'react-native-web'`.
   - Ensure `mainFields` includes `'browser'` and `'module'` before `'main'`.
-
 - One:
   - Verify both web and native entrypoints can render `UIProvider`.
   - Ensure One resolves one copy of React and honors `react-native`/web aliases.
@@ -240,20 +240,18 @@ Use this as a minimum gate before publishing a new version of `@aioz/cross-ui`.
 ## 🔄 Keeping submodule up to date
 
 ```bash
-cd packages/cross-ui
-git pull origin main
+cd cross-ui
+git pull
 pnpm install   # if deps changed
 pnpm build
-cd ../..
-git add packages/cross-ui
-git commit -m "chore: update cross-ui submodule"
+cd ../
 ```
 
 Or in one line from consumer root:
 
 ```bash
-git submodule update --remote packages/cross-ui
-cd packages/cross-ui && pnpm install && pnpm build && cd ../..
+git submodule update --remote cross-ui
+cd cross-ui && pnpm install && pnpm build && cd ../..
 ```
 
 ---
@@ -330,16 +328,18 @@ pnpm typecheck
 
 ## 📋 Component Checklist
 
+
 | Component  | Variants                                       | Mobile | Web |
 | ---------- | ---------------------------------------------- | ------ | --- |
-| Button     | primary · secondary · outline · ghost · danger | ✅     | ✅  |
-| Text       | h1–h4 · body · label · caption · code          | ✅     | ✅  |
-| Input      | size · error · helper                          | ✅     | ✅  |
-| Card       | default · elevated · flat · ghost              | ✅     | ✅  |
-| Badge      | default · primary · success · warning · danger | ✅     | ✅  |
-| Avatar     | circle · square, xs–xl                         | ✅     | ✅  |
-| Divider    | plain · labeled                                | ✅     | ✅  |
-| UIProvider | theme · defaultTheme                           | ✅     | ✅  |
+| Button     | primary · secondary · outline · ghost · danger | ✅      | ✅   |
+| Text       | h1–h4 · body · label · caption · code          | ✅      | ✅   |
+| Input      | size · error · helper                          | ✅      | ✅   |
+| Card       | default · elevated · flat · ghost              | ✅      | ✅   |
+| Badge      | default · primary · success · warning · danger | ✅      | ✅   |
+| Avatar     | circle · square, xs–xl                         | ✅      | ✅   |
+| Divider    | plain · labeled                                | ✅      | ✅   |
+| UIProvider | theme · defaultTheme                           | ✅      | ✅   |
+
 
 ---
 
