@@ -1,15 +1,15 @@
-import type { LiquidOptions } from "./LiquidGlass";
+import type { LiquidOptions } from './liquid-glass'
 
 export type LiquidComponentKind =
-  | "button"
-  | "badge"
-  | "card"
-  | "container"
-  | "dialog"
-  | "drawer"
-  | "input"
-  | "overlay"
-  | "tabs";
+  | 'button'
+  | 'badge'
+  | 'card'
+  | 'container'
+  | 'dialog'
+  | 'drawer'
+  | 'input'
+  | 'overlay'
+  | 'tabs'
 
 const LIQUID_DEFAULT_OPTIONS: Record<LiquidComponentKind, LiquidOptions> = {
   button: {
@@ -85,52 +85,48 @@ const LIQUID_DEFAULT_OPTIONS: Record<LiquidComponentKind, LiquidOptions> = {
     brightness: 100,
     displacementScale: 24,
   },
-};
+}
 
-export const getDefaultLiquidOptions = (
-  kind: LiquidComponentKind
-): LiquidOptions => ({
+export const getDefaultLiquidOptions = (kind: LiquidComponentKind): LiquidOptions => ({
   ...LIQUID_DEFAULT_OPTIONS[kind],
   style: {
     ...(LIQUID_DEFAULT_OPTIONS[kind].style ?? {}),
   },
-});
+})
 
-export const mergeLiquidOptions = (
-  ...sources: Array<LiquidOptions | undefined>
-): LiquidOptions => {
-  let style: LiquidOptions["style"] = {};
-  let className: string | undefined;
-  let contentClassName: string | undefined;
+export const mergeLiquidOptions = (...sources: Array<LiquidOptions | undefined>): LiquidOptions => {
+  let style: LiquidOptions['style'] = {}
+  let className: string | undefined
+  let contentClassName: string | undefined
 
   const merged = sources.reduce<LiquidOptions>((acc, source) => {
-    if (!source) return acc;
+    if (!source) return acc
 
     style = {
       ...(style ?? {}),
       ...(source.style ?? {}),
-    };
+    }
 
-    className = className;
-    contentClassName = contentClassName;
+    className = className
+    contentClassName = contentClassName
 
     return {
       ...acc,
       ...source,
-    };
-  }, {});
+    }
+  }, {})
 
   if (style && Object.keys(style).length > 0) {
-    merged.style = style;
+    merged.style = style
   }
 
   if (className) {
-    merged.className = className;
+    merged.className = className
   }
 
   if (contentClassName) {
-    merged.contentClassName = contentClassName;
+    merged.contentClassName = contentClassName
   }
 
-  return merged;
-};
+  return merged
+}

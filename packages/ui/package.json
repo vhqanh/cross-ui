@@ -38,6 +38,8 @@
     "build-storybook": "storybook build"
   },
   "peerDependencies": {
+    "@react-native-community/blur": "^4.4.1",
+    "@shopify/react-native-skia": "^2.4.0",
     "@tamagui/animations-react-native": "^2.0.0-rc.41",
     "@tamagui/config": "^2.0.0-rc.41",
     "@tamagui/core": "^2.0.0-rc.41",
@@ -50,6 +52,12 @@
     "tamagui": "^2.0.0-rc.41"
   },
   "peerDependenciesMeta": {
+    "@react-native-community/blur": {
+      "optional": true
+    },
+    "@shopify/react-native-skia": {
+      "optional": true
+    },
     "react-dom": {
       "optional": true
     },
@@ -61,6 +69,8 @@
     }
   },
   "devDependencies": {
+    "@react-native-community/blur": "^4.4.1",
+    "@shopify/react-native-skia": "^2.4.0",
     "@rollup/plugin-inject": "^5.0.5",
     "@storybook/react": "^8.6.14",
     "@storybook/react-vite": "^8.6.14",

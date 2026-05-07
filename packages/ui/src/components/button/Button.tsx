@@ -1,6 +1,8 @@
 import { forwardRef, type ElementRef } from 'react'
 import type { GetProps, TamaguiComponent } from 'tamagui'
 import { styled, Button as TamaguiButton, Text } from 'tamagui'
+import { LiquidGlass, LiquidOptions } from '../liquid-glass'
+import { getDefaultLiquidOptions, mergeLiquidOptions } from '../liquid-glass/liquid/options'
 
 const ButtonFrame: TamaguiComponent = styled(TamaguiButton, {
   name: 'Button',
@@ -42,6 +44,14 @@ const ButtonFrame: TamaguiComponent = styled(TamaguiButton, {
         hoverStyle: { backgroundColor: '$danger600' },
         pressStyle: { backgroundColor: '$danger600', opacity: 0.9 },
       },
+      liquid: {
+        display: 'inline-flex',
+        width: '100%',
+        backgroundColor: 'transparent',
+        borderColor: 'transparent',
+        hoverStyle: { backgroundColor: 'transparent', borderColor: 'transparent' },
+        pressStyle: { backgroundColor: 'transparent', borderColor: 'transparent' },
+      },
     },
     size: {
       sm: { minHeight: 32, paddingHorizontal: '$3' },
@@ -72,6 +82,7 @@ const ButtonText = styled(Text, {
       outline: { color: '$primary600' },
       ghost: { color: '$gray700' },
       danger: { color: '$white' },
+      liquid: { color: '$white' },
     },
     buttonSize: {
       sm: { fontSize: 13, lineHeight: 18 },
@@ -87,7 +98,7 @@ const ButtonText = styled(Text, {
 })
 
 type ButtonFrameProps = GetProps<typeof ButtonFrame>
-type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'liquid'
 type ButtonSize = 'sm' | 'md' | 'lg'
 
 export interface ButtonProps extends Omit<ButtonFrameProps, 'variant' | 'buttonSize'> {
@@ -97,11 +108,15 @@ export interface ButtonProps extends Omit<ButtonFrameProps, 'variant' | 'buttonS
   loading?: boolean
   variant?: ButtonVariant
   size?: ButtonSize
+  liquidOptions?: LiquidOptions
 }
 
 export const Button = forwardRef<ElementRef<typeof ButtonFrame>, ButtonProps>(
-  ({ children, leftIcon, rightIcon, disabled, loading, ...props }: ButtonProps, ref) => {
-    return (
+  (
+    { children, leftIcon, rightIcon, disabled, loading, liquidOptions, ...props }: ButtonProps,
+    ref
+  ) => {
+    const frame = (
       <ButtonFrame ref={ref} disabled={disabled || loading} {...props}>
         {leftIcon}
         {typeof children === 'string' ? (
@@ -112,6 +127,15 @@ export const Button = forwardRef<ElementRef<typeof ButtonFrame>, ButtonProps>(
         {rightIcon}
       </ButtonFrame>
     )
+    if (props.variant !== 'liquid') return frame
+
+    const resolvedLiquidOptions = mergeLiquidOptions(
+      getDefaultLiquidOptions('button'),
+      { cornerRadius: 16, contentClassName: 'w-full h-full' },
+      liquidOptions
+    )
+
+    return <LiquidGlass liquidOptions={resolvedLiquidOptions}>{frame}</LiquidGlass>
   }
 )
 
