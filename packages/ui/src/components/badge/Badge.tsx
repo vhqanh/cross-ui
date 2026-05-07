@@ -1,6 +1,7 @@
-import { styled, View, Text } from 'tamagui'
+import type { TamaguiComponent } from 'tamagui'
+import { styled, Text, View } from 'tamagui'
 
-const BadgeFrame = styled(View, {
+const BadgeFrame: TamaguiComponent = styled(View, {
   name: 'Badge',
   flexDirection: 'row',
   alignItems: 'center',
@@ -15,13 +16,13 @@ const BadgeFrame = styled(View, {
       warning: { backgroundColor: '$warning100', borderColor: '$warning200' },
       danger: { backgroundColor: '$danger100', borderColor: '$danger200' },
     },
-    size: {
+    badgeSize: {
       sm: { paddingHorizontal: '$2', paddingVertical: '$0.5', gap: '$1' },
       md: { paddingHorizontal: '$2.5', paddingVertical: '$1', gap: '$1.5' },
     },
   } as const,
 
-  defaultVariants: { variant: 'default', size: 'md' },
+  defaultVariants: { variant: 'default', badgeSize: 'md' },
 })
 
 const BadgeText = styled(Text, {
@@ -36,23 +37,24 @@ const BadgeText = styled(Text, {
       warning: { color: '$warning600' },
       danger: { color: '$danger600' },
     },
-    size: {
+    badgeSize: {
       sm: { fontSize: 11, lineHeight: 16 },
       md: { fontSize: 12, lineHeight: 18 },
     },
   } as const,
 
-  defaultVariants: { variant: 'default', size: 'md' },
+  defaultVariants: { variant: 'default', badgeSize: 'md' },
 })
 
-export interface BadgeProps extends React.ComponentProps<typeof BadgeFrame> {
+export interface BadgeProps extends Omit<React.ComponentProps<typeof BadgeFrame>, 'badgeSize'> {
   children: string
   dot?: boolean
+  size?: 'sm' | 'md'
 }
 
-export function Badge({ children, variant, size, dot, ...rest }: BadgeProps) {
+export function Badge({ children, variant, size = 'md', dot, ...rest }: BadgeProps) {
   return (
-    <BadgeFrame variant={variant} size={size} {...rest}>
+    <BadgeFrame variant={variant} badgeSize={size} {...rest}>
       {dot && (
         <View
           width={6}
@@ -71,7 +73,7 @@ export function Badge({ children, variant, size, dot, ...rest }: BadgeProps) {
           }
         />
       )}
-      <BadgeText variant={variant} size={size}>
+      <BadgeText variant={variant} badgeSize={size}>
         {children}
       </BadgeText>
     </BadgeFrame>

@@ -1,5 +1,9 @@
 node_modules/
 dist/
+
+.expo/
+expo-env.d.ts
+/tsconfig.json
 .turbo/
 storybook-static/
 *.tsbuildinfo

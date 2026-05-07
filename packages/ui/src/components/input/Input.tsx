@@ -1,7 +1,11 @@
-import { styled, Input as TamaguiInput, View, Text, GetProps } from 'tamagui'
 import { forwardRef, type ElementRef } from 'react'
+import type { GetProps, TamaguiComponent } from 'tamagui'
+import { styled, Input as TamaguiInput, Text, View } from 'tamagui'
 
-const InputFrame = styled(TamaguiInput, {
+/** Prop `size` của Tamagui Input = bước token font ($0…$true), không phải sm/md/lg. */
+const tamaguiFieldChromeSize = { sm: '$3', md: '$4', lg: '$5' } as const
+
+const InputFrame: TamaguiComponent = styled(TamaguiInput, {
   name: 'Input',
   fontFamily: '$body',
   fontSize: 15,
@@ -23,7 +27,7 @@ const InputFrame = styled(TamaguiInput, {
   },
 
   variants: {
-    size: {
+    fieldSize: {
       sm: { fontSize: 13, paddingHorizontal: '$2.5', paddingVertical: '$1.5', borderRadius: '$2' },
       md: { fontSize: 15, paddingHorizontal: '$3', paddingVertical: '$2' },
       lg: { fontSize: 17, paddingHorizontal: '$4', paddingVertical: '$3', borderRadius: '$4' },
@@ -39,20 +43,24 @@ const InputFrame = styled(TamaguiInput, {
     },
   } as const,
 
-  defaultVariants: { size: 'md' },
+  defaultVariants: { fieldSize: 'md', size: '$4' } as never,
 })
 
 type InputFrameProps = GetProps<typeof InputFrame>
 
-export interface InputProps extends InputFrameProps {
+export interface InputProps extends Omit<InputFrameProps, 'fieldSize'> {
   label?: string
   helperText?: string
   errorText?: string
+  size?: 'sm' | 'md' | 'lg'
 }
 
+type FieldSizeKey = keyof typeof tamaguiFieldChromeSize
+
 export const Input = forwardRef<ElementRef<typeof InputFrame>, InputProps>(
-  ({ label, helperText, errorText, hasError, ...rest }, ref) => {
+  ({ label, helperText, errorText, hasError, size: sizeProp = 'md', ...rest }, ref) => {
     const showError = !!errorText
+    const fieldSize = sizeProp as FieldSizeKey
 
     return (
       <View gap="$1.5" width="100%">
@@ -61,7 +69,13 @@ export const Input = forwardRef<ElementRef<typeof InputFrame>, InputProps>(
             {label}
           </Text>
         )}
-        <InputFrame ref={ref} hasError={showError || hasError} {...rest} />
+        <InputFrame
+          ref={ref}
+          fieldSize={fieldSize}
+          hasError={showError || hasError}
+          {...rest}
+          size={tamaguiFieldChromeSize[fieldSize] as never}
+        />
         {showError ? (
           <Text fontSize={12} color="$danger500">
             {errorText}

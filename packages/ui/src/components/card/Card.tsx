@@ -1,6 +1,7 @@
+import type { TamaguiComponent } from 'tamagui'
 import { styled, Card as TamaguiCard } from 'tamagui'
 
-export const Card = styled(TamaguiCard, {
+export const Card: TamaguiComponent = styled(TamaguiCard, {
   name: 'Card',
   backgroundColor: '$white',
   borderRadius: '$5',
@@ -55,7 +56,7 @@ export const Card = styled(TamaguiCard, {
   },
 })
 
-export const CardHeader = styled(TamaguiCard.Header, {
+export const CardHeader: TamaguiComponent = styled(TamaguiCard.Header, {
   name: 'CardHeader',
   paddingBottom: '$4',
   borderBottomWidth: 1,
@@ -63,7 +64,7 @@ export const CardHeader = styled(TamaguiCard.Header, {
   marginBottom: '$4',
 })
 
-export const CardFooter = styled(TamaguiCard.Footer, {
+export const CardFooter: TamaguiComponent = styled(TamaguiCard.Footer, {
   name: 'CardFooter',
   paddingTop: '$4',
   borderTopWidth: 1,

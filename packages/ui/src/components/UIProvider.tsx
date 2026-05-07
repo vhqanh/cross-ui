@@ -1,8 +1,11 @@
-import { TamaguiProvider as CoreProvider, TamaguiProviderProps } from 'tamagui'
+import type { TamaguiProviderProps } from 'tamagui'
+import { TamaguiProvider as CoreProvider } from 'tamagui'
 import tamaguiConfig from '../tokens/tamagui.config'
 
-export interface UIProviderProps extends Omit<TamaguiProviderProps, 'config'> {
+export interface UIProviderProps
+  extends Omit<TamaguiProviderProps, 'config' | 'defaultTheme'> {
   config?: TamaguiProviderProps['config']
+  defaultTheme?: TamaguiProviderProps['defaultTheme']
 }
 
 /**
@@ -21,9 +24,14 @@ export interface UIProviderProps extends Omit<TamaguiProviderProps, 'config'> {
  *   return <UIProvider><RootNavigator /></UIProvider>
  * }
  */
-export function UIProvider({ config, children, ...rest }: UIProviderProps) {
+export function UIProvider({
+  config,
+  children,
+  defaultTheme = 'light',
+  ...rest
+}: UIProviderProps) {
   return (
-    <CoreProvider config={config ?? tamaguiConfig} {...rest}>
+    <CoreProvider config={config ?? tamaguiConfig} defaultTheme={defaultTheme} {...rest}>
       {children}
     </CoreProvider>
   )

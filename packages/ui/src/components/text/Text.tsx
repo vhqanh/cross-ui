@@ -1,6 +1,7 @@
+import type { TamaguiComponent } from 'tamagui'
 import { styled, Text as TamaguiText } from 'tamagui'
 
-export const Text = styled(TamaguiText, {
+export const Text: TamaguiComponent = styled(TamaguiText, {
   name: 'Text',
   fontFamily: '$body',
   color: '$gray900',

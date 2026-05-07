@@ -8,35 +8,56 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "development": {
+        "types": "./src/index.ts",
+        "default": "./src/index.ts"
+      },
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
     "./tokens": {
-      "types": "./dist/tokens.d.ts",
-      "require": "./dist/tokens.js",
-      "import": "./dist/tokens.mjs"
+      "development": {
+        "types": "./src/tokens/index.ts",
+        "default": "./src/tokens/index.ts"
+      },
+      "types": "./dist/tokens/index.d.ts",
+      "require": "./dist/tokens/index.js",
+      "import": "./dist/tokens/index.mjs"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "pnpm exec tsup && pnpm exec tsc -p tsconfig.build.json",
+    "dev": "pnpm exec tsup --watch --onSuccess \"pnpm exec tsc -p tsconfig.build.json\"",
     "typecheck": "tsc --noEmit",
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build"
   },
   "peerDependencies": {
-    "@tamagui/core": ">=2.0.0-rc.0",
-    "react": ">=19.0.0",
-    "react-dom": ">=19.0.0",
-    "react-native": ">=0.81.0",
-    "react-native-web": ">=0.20.0",
-    "tamagui": ">=2.0.0-rc.0"
+    "@react-native-community/blur": "^4.4.1",
+    "@shopify/react-native-skia": "^2.4.0",
+    "@tamagui/animations-react-native": "^2.0.0-rc.41",
+    "@tamagui/config": "^2.0.0-rc.41",
+    "@tamagui/core": "^2.0.0-rc.41",
+    "@tamagui/font-inter": "^2.0.0-rc.41",
+    "@tamagui/themes": "^2.0.0-rc.41",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-native": "^0.81.0",
+    "react-native-web": "^0.20.0",
+    "tamagui": "^2.0.0-rc.41"
   },
   "peerDependenciesMeta": {
+    "@react-native-community/blur": {
+      "optional": true
+    },
+    "@shopify/react-native-skia": {
+      "optional": true
+    },
     "react-dom": {
       "optional": true
     },
@@ -47,22 +68,14 @@
       "optional": true
     }
   },
-  "dependencies": {
-    "@tamagui/animations-react-native": "^2.0.0-rc.41",
-    "@tamagui/config": "^2.0.0-rc.41",
-    "@tamagui/font-inter": "^2.0.0-rc.41",
-    "@tamagui/themes": "^2.0.0-rc.41",
-    "tamagui": "^2.0.0-rc.41"
-  },
   "devDependencies": {
+    "@react-native-community/blur": "^4.4.1",
+    "@shopify/react-native-skia": "^2.4.0",
     "@rollup/plugin-inject": "^5.0.5",
     "@storybook/react": "^8.6.14",
     "@storybook/react-vite": "^8.6.14",
     "@types/node": "^25.6.0",
     "@types/react": "^19.0.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-native-web": "^0.20.0",
     "storybook": "^8.6.14",
     "tsup": "^8.1.0",
     "typescript": "^5.4.5",
