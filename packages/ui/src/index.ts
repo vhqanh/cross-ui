@@ -63,8 +63,6 @@ export type { TooltipProps } from './components/tooltip/tooltip'
 export { Toggle } from './components/toggle/toggle'
 export type { ToggleProps } from './components/toggle/toggle'
 
-export { Toast, ToastProvider } from './components/toast/toast'
-
 export { Sheet } from './components/sheet/sheet'
 export type { SheetProps, SheetSize, SheetVariant } from './components/sheet/sheet'
 
