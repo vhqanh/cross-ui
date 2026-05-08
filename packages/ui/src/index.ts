@@ -57,9 +57,6 @@ export type { TableColumn, TableProps } from './components/table/table'
 export { Textarea } from './components/textarea/textarea'
 export type { TextareaProps } from './components/textarea/textarea'
 
-export { Tooltip } from './components/tooltip/tooltip'
-export type { TooltipProps } from './components/tooltip/tooltip'
-
 export { Toggle } from './components/toggle/toggle'
 export type { ToggleProps } from './components/toggle/toggle'
 
