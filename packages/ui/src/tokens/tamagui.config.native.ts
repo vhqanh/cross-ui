@@ -1,4 +1,4 @@
-import { animations } from '@tamagui/config/v5-css'
+import { animations } from '@tamagui/config/v5-reanimated'
 import { createAppTamaguiConfig } from './tamagui.config.base'
 
 const config = createAppTamaguiConfig({ animations })
