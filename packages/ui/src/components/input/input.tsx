@@ -2,7 +2,6 @@ import { forwardRef, type ElementRef } from 'react'
 import type { GetProps, TamaguiComponent } from 'tamagui'
 import { styled, Input as TamaguiInput, Text, View } from 'tamagui'
 
-/** Prop `size` của Tamagui Input = bước token font ($0…$true), không phải sm/md/lg. */
 const tamaguiFieldChromeSize = { sm: '$3', md: '$4', lg: '$5' } as const
 
 const InputFrame: TamaguiComponent = styled(TamaguiInput, {
