@@ -1,10 +1,10 @@
 {
-  "name": "@aioz/cross-ui-workspace",
+  "name": "aioz-ui-mobile-workspace",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --filter=@aioz/cross-ui",
+    "dev": "turbo run dev --filter=@aioz-ui-mobile/ui",
     "typecheck": "turbo run typecheck",
     "lint": "eslint \"packages/**/*.{ts,tsx}\"",
     "lint:fix": "eslint \"packages/**/*.{ts,tsx}\" --fix",
@@ -14,8 +14,8 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "changeset publish",
-    "storybook": "turbo run storybook --filter=@aioz/cross-ui",
-    "build-storybook": "turbo run build-storybook --filter=@aioz/cross-ui"
+    "storybook": "turbo run storybook --filter=@aioz-ui-mobile/ui",
+    "build-storybook": "turbo run build-storybook --filter=@aioz-ui-mobile/ui"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",

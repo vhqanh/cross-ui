@@ -1,5 +1,5 @@
 {
-  "name": "@aioz/cross-ui",
+  "name": "@aioz-ui-mobile/ui",
   "version": "0.1.0",
   "description": "Shared UI component kit built with Tamagui — works on React Native & Web",
   "sideEffects": false,
