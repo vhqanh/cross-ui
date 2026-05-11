@@ -2,7 +2,7 @@ import { styled, Separator, View, Text } from 'tamagui'
 
 const DividerLine = styled(Separator, {
   name: 'Divider',
-  borderColor: '$gray200',
+  borderColor: '$borderColor',
   flex: 1,
 
   variants: {
@@ -25,7 +25,7 @@ export function Divider({ label, orientation = 'horizontal' }: DividerProps) {
   return (
     <View flexDirection="row" alignItems="center" gap="$3">
       <DividerLine orientation={orientation} />
-      <Text fontSize={12} color="$gray400" fontWeight="500">
+      <Text fontSize={12} color="$color9" fontWeight="500">
         {label}
       </Text>
       <DividerLine orientation={orientation} />

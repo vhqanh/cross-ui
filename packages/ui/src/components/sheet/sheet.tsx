@@ -19,16 +19,16 @@ const StyledOverlay = styled(TamaguiSheet.Overlay, {
 
 const StyledFrame = styled(TamaguiSheet.Frame, {
   name: 'SheetFrame',
-  backgroundColor: '$white',
-  borderColor: '$gray200',
+  backgroundColor: '$background',
+  borderColor: '$borderColor',
   borderWidth: 1,
   gap: '$3',
 
   variants: {
     variant: {
       default: {
-        backgroundColor: '$white',
-        borderColor: '$gray200',
+        backgroundColor: '$background',
+        borderColor: '$borderColor',
       },
       primary: {
         backgroundColor: '$primary50',
@@ -58,7 +58,7 @@ const StyledTitleWrapper = styled(View, {
 
   variants: {
     variant: {
-      default: { borderBottomColor: '$gray100' },
+      default: { borderBottomColor: '$borderColor' },
       primary: { borderBottomColor: '$primary100' },
       dark: { borderBottomColor: '$gray700' },
     },
@@ -110,7 +110,7 @@ export function Sheet({
       <StyledFrame variant={variant} size={size}>
         {title ? (
           <StyledTitleWrapper variant={variant} size={size}>
-            <Text variant="h4" color={variant === 'dark' ? '$gray100' : '$gray900'}>
+            <Text variant="h4" color={variant === 'dark' ? '$gray100' : '$color12'}>
               {title}
             </Text>
           </StyledTitleWrapper>

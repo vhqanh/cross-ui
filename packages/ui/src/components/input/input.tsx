@@ -8,10 +8,10 @@ const InputFrame: TamaguiComponent = styled(TamaguiInput, {
   name: 'Input',
   fontFamily: '$body',
   fontSize: 15,
-  color: '$gray900',
-  backgroundColor: '$white',
+  color: '$color12',
+  backgroundColor: '$background',
   borderWidth: 1.5,
-  borderColor: '$gray200',
+  borderColor: '$borderColor',
   borderRadius: '$3',
   paddingHorizontal: '$3',
   paddingVertical: '$2',
@@ -64,7 +64,7 @@ export const Input = forwardRef<ElementRef<typeof InputFrame>, InputProps>(
     return (
       <View gap="$1.5" width="100%">
         {label && (
-          <Text fontSize={13} fontWeight="500" color="$gray700">
+          <Text fontSize={13} fontWeight="500" color="$color11">
             {label}
           </Text>
         )}
@@ -80,7 +80,7 @@ export const Input = forwardRef<ElementRef<typeof InputFrame>, InputProps>(
             {errorText}
           </Text>
         ) : helperText ? (
-          <Text fontSize={12} color="$gray500">
+          <Text fontSize={12} color="$color10">
             {helperText}
           </Text>
         ) : null}

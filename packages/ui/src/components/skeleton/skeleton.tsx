@@ -2,14 +2,14 @@ import { View, styled } from 'tamagui'
 
 const StyledSkeleton = styled(View, {
   name: 'Skeleton',
-  backgroundColor: '$gray200',
+  backgroundColor: '$color4',
   opacity: 0.7,
 
   variants: {
     variant: {
-      default: { backgroundColor: '$gray200' },
+      default: { backgroundColor: '$color4' },
       primary: { backgroundColor: '$primary100' },
-      dark: { backgroundColor: '$gray600' },
+      dark: { backgroundColor: '$color8' },
     },
     shape: {
       line: { borderRadius: '$2' },

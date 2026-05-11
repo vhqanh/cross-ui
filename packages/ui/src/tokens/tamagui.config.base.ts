@@ -1,7 +1,15 @@
 import { createInterFont } from '@tamagui/font-inter'
-import { themes } from '@tamagui/themes'
+import { themes as tamaguiThemes } from '@tamagui/themes'
 import { createTamagui } from 'tamagui'
 import { tokens } from './tokens'
+
+const themes = {
+  ...tamaguiThemes,
+  dark: {
+    ...tamaguiThemes.dark,
+    borderColor: 'rgba(255, 255, 255, 0.16)',
+  },
+}
 
 const headingFont = createInterFont({
   size: { 6: 15 },

@@ -1,5 +1,8 @@
-import { Checkbox as TamaguiCheckbox, View, styled } from 'tamagui'
+import { Label, Checkbox as TamaguiCheckbox, XStack } from 'tamagui'
 import { Text } from '../text/text'
+
+export type CheckboxVariant = 'default' | 'primary'
+export type CheckboxSize = 'sm' | 'md'
 
 export interface CheckboxProps {
   checked?: boolean
@@ -7,37 +10,29 @@ export interface CheckboxProps {
   onCheckedChange?: (checked: boolean) => void
   label?: string
   disabled?: boolean
-  size?: 'sm' | 'md'
-  variant?: 'default' | 'primary'
+  size?: CheckboxSize
+  variant?: CheckboxVariant
+  id?: string
 }
 
-const CheckboxFrame = styled(TamaguiCheckbox, {
-  name: 'Checkbox',
-  borderRadius: '$1',
-  borderWidth: 1.5,
-
-  variants: {
-    variant: {
-      default: {
-        borderColor: '$gray300',
-        backgroundColor: '$white',
-      },
-      primary: {
-        borderColor: '$primary400',
-        backgroundColor: '$primary50',
-      },
+const variantStyleMap: Record<CheckboxVariant, object> = {
+  default: {
+    borderColor: '$borderColor',
+    backgroundColor: '$background',
+    checkedStyle: {
+      backgroundColor: '$color12',
+      borderColor: '$color12',
     },
-    controlSize: {
-      sm: { size: '$1.5' },
-      md: { size: '$2' },
-    },
-  } as const,
-
-  defaultVariants: {
-    variant: 'default',
-    controlSize: 'sm',
   },
-})
+  primary: {
+    borderColor: '$primary400',
+    backgroundColor: '$background',
+    checkedStyle: {
+      backgroundColor: '$primary500',
+      borderColor: '$primary500',
+    },
+  },
+}
 
 export function Checkbox({
   checked,
@@ -47,30 +42,57 @@ export function Checkbox({
   disabled,
   size = 'sm',
   variant = 'default',
+  id,
 }: CheckboxProps) {
+  const checkboxId = id ?? `checkbox-${size}-${variant}`
+  const variantStyle = variantStyleMap[variant]
+
+  const checkboxSize = size === 'sm' ? 18 : 22
+  const fontSize = size === 'sm' ? 12 : 14
+
   return (
-    <View flexDirection="row" alignItems="center" gap="$2">
-      <CheckboxFrame
+    <XStack
+      alignItems="center"
+      gap="$2.5"
+      opacity={disabled ? 0.4 : 1}
+      cursor={disabled ? 'not-allowed' : 'pointer'}
+    >
+      <TamaguiCheckbox
+        id={checkboxId}
         checked={checked}
         defaultChecked={defaultChecked}
         onCheckedChange={(next) => onCheckedChange?.(!!next)}
         disabled={disabled}
-        controlSize={size}
-        variant={variant}
-        hoverStyle={{ borderColor: '$primary500' }}
-        focusStyle={{ borderColor: '$primary600' }}
+        width={checkboxSize}
+        height={checkboxSize}
+        minWidth={checkboxSize}
+        borderWidth={1.5}
+        borderRadius="$2"
+        hoverStyle={{ borderColor: '$primary400' }}
+        {...variantStyle}
       >
         <TamaguiCheckbox.Indicator>
-          <Text variant="label" bold color="$primary700">
+          <Text
+            variant="caption"
+            color={variant === 'primary' ? '$white' : '$background'}
+            fontSize={fontSize}
+          >
             ✓
           </Text>
         </TamaguiCheckbox.Indicator>
-      </CheckboxFrame>
+      </TamaguiCheckbox>
+
       {label ? (
-        <Text variant={size === 'sm' ? 'label' : 'body'} color={disabled ? '$gray400' : '$gray800'}>
+        <Label
+          htmlFor={checkboxId}
+          color="$color12"
+          cursor={disabled ? 'not-allowed' : 'pointer'}
+          fontWeight="400"
+          fontSize={fontSize}
+        >
           {label}
-        </Text>
+        </Label>
       ) : null}
-    </View>
+    </XStack>
   )
 }

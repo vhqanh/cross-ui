@@ -12,8 +12,8 @@ const ProgressFrame = styled(TamaguiProgress, {
   name: 'Progress',
   borderRadius: '$full',
   borderWidth: 1,
-  borderColor: '$gray200',
-  backgroundColor: '$gray200',
+  borderColor: '$color5',
+  backgroundColor: '$color5',
   variants: {
     progressSize: {
       sm: { size: '$1' },
@@ -54,7 +54,7 @@ export function Progress({
         <ProgressIndicator variant={variant} />
       </ProgressFrame>
       {showLabel ? (
-        <Text fontSize={12} color="$gray500">
+        <Text fontSize={12} color="$color10">
           {percent}%
         </Text>
       ) : null}

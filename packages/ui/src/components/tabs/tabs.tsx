@@ -8,16 +8,16 @@ const StyledList = styled(TamaguiTabs.List, {
   variants: {
     variant: {
       default: {
-        backgroundColor: '$gray100',
+        backgroundColor: '$color3',
         borderWidth: 1,
-        borderColor: '$gray200',
+        borderColor: '$borderColor',
         borderRadius: '$3',
       },
       underline: {
         backgroundColor: 'transparent',
         borderWidth: 0,
         borderBottomWidth: 1,
-        borderBottomColor: '$gray200',
+        borderBottomColor: '$borderColor',
         borderRadius: 0,
       },
       pill: {
@@ -42,16 +42,16 @@ const StyledTab = styled(TamaguiTabs.Tab, {
     variant: {
       default: {
         borderRadius: '$2',
-        backgroundColor: '$gray100',
-        hoverStyle: { backgroundColor: '$gray50' },
-        focusStyle: { backgroundColor: '$white' },
+        backgroundColor: '$color3',
+        hoverStyle: { backgroundColor: '$color4' },
+        focusStyle: { backgroundColor: '$background' },
       },
       underline: {
         borderRadius: 0,
         backgroundColor: 'transparent',
         borderBottomWidth: 2,
         borderBottomColor: 'transparent',
-        hoverStyle: { backgroundColor: '$gray50' },
+        hoverStyle: { backgroundColor: '$color3' },
         focusStyle: { borderBottomColor: '$primary500' },
       },
       pill: {
@@ -120,7 +120,7 @@ export function Tabs({
             size={size}
             opacity={item.disabled ? 0.5 : 1}
           >
-            <Text variant="label" color="$gray700">
+            <Text variant="label" color="$color12">
               {item.label}
             </Text>
           </StyledTab>

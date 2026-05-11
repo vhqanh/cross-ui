@@ -9,8 +9,8 @@ const StyledTrigger = styled(TamaguiSelect.Trigger, {
   variants: {
     variant: {
       default: {
-        borderColor: '$gray300',
-        backgroundColor: '$white',
+        borderColor: '$borderColor',
+        backgroundColor: '$background',
       },
       primary: {
         borderColor: '$primary400',
@@ -18,7 +18,7 @@ const StyledTrigger = styled(TamaguiSelect.Trigger, {
       },
       ghost: {
         borderWidth: 0,
-        backgroundColor: '$gray100',
+        backgroundColor: '$color3',
       },
     },
     size: {
@@ -36,15 +36,15 @@ const StyledTrigger = styled(TamaguiSelect.Trigger, {
 
 const StyledViewport = styled(TamaguiSelect.Viewport, {
   name: 'SelectViewport',
-  backgroundColor: '$white',
+  backgroundColor: '$background',
   borderWidth: 1,
   borderRadius: '$3',
 
   variants: {
     variant: {
-      default: { borderColor: '$gray200' },
+      default: { borderColor: '$borderColor' },
       primary: { borderColor: '$primary200' },
-      ghost: { borderColor: '$gray200' },
+      ghost: { borderColor: '$borderColor' },
     },
   } as const,
 
@@ -58,9 +58,9 @@ const StyledItem = styled(TamaguiSelect.Item, {
 
   variants: {
     variant: {
-      default: { hoverStyle: { backgroundColor: '$gray100' } },
+      default: { hoverStyle: { backgroundColor: '$color3' } },
       primary: { hoverStyle: { backgroundColor: '$primary50' } },
-      ghost: { hoverStyle: { backgroundColor: '$gray100' } },
+      ghost: { hoverStyle: { backgroundColor: '$color3' } },
     },
     size: {
       sm: { paddingHorizontal: '$2', paddingVertical: '$1' },

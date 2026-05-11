@@ -5,14 +5,14 @@ const StyledTrigger = styled(View, {
   name: 'DropdownTrigger',
   borderWidth: 1,
   borderRadius: '$3',
-  backgroundColor: '$white',
+  backgroundColor: '$background',
   cursor: 'pointer',
 
   variants: {
     variant: {
       default: {
-        borderColor: '$gray300',
-        backgroundColor: '$white',
+        borderColor: '$borderColor',
+        backgroundColor: '$background',
       },
       primary: {
         borderColor: '$primary400',
@@ -40,23 +40,23 @@ const StyledContent = styled(Popover.Content, {
   name: 'DropdownContent',
   borderWidth: 1,
   borderRadius: '$3',
-  backgroundColor: '$white',
+  backgroundColor: '$background',
   padding: '$1',
   elevate: true,
 
   variants: {
     variant: {
       default: {
-        borderColor: '$gray200',
-        backgroundColor: '$white',
+        borderColor: '$borderColor',
+        backgroundColor: '$background',
       },
       primary: {
         borderColor: '$primary200',
-        backgroundColor: '$white',
+        backgroundColor: '$background',
       },
       ghost: {
-        borderColor: '$gray200',
-        backgroundColor: '$white',
+        borderColor: '$borderColor',
+        backgroundColor: '$background',
       },
     },
     size: {
@@ -75,13 +75,13 @@ const StyledContent = styled(Popover.Content, {
 const StyledItem = styled(View, {
   name: 'DropdownItem',
   borderRadius: '$2',
-  hoverStyle: { backgroundColor: '$gray100' },
+  hoverStyle: { backgroundColor: '$color3' },
 
   variants: {
     variant: {
-      default: { hoverStyle: { backgroundColor: '$gray100' } },
+      default: { hoverStyle: { backgroundColor: '$color3' } },
       primary: { hoverStyle: { backgroundColor: '$primary50' } },
-      ghost: { hoverStyle: { backgroundColor: '$gray100' } },
+      ghost: { hoverStyle: { backgroundColor: '$color3' } },
     },
     size: {
       sm: { paddingHorizontal: '$2', paddingVertical: '$1' },
@@ -117,7 +117,7 @@ export function Dropdown({ triggerLabel, items, variant = 'default', size = 'md'
     <Popover size="$5" placement="bottom-end" allowFlip>
       <Popover.Trigger asChild>
         <StyledTrigger variant={variant} size={size}>
-          <Text variant="label" color="$gray800">
+          <Text variant="label" color="$color12">
             {triggerLabel}
           </Text>
         </StyledTrigger>
@@ -133,7 +133,7 @@ export function Dropdown({ triggerLabel, items, variant = 'default', size = 'md'
             }}
           >
             <StyledItem variant={variant} size={size} opacity={item.disabled ? 0.5 : 1}>
-              <Text variant="bodySm" color="$gray800">
+              <Text variant="bodySm" color="$color12">
                 {item.label}
               </Text>
             </StyledItem>

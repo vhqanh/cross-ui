@@ -20,9 +20,9 @@ const StyledOverlay = styled(TamaguiDialog.Overlay, {
 
 const StyledContent = styled(TamaguiDialog.Content, {
   name: 'DialogContent',
-  backgroundColor: '$white',
+  backgroundColor: '$background',
   borderWidth: 1,
-  borderColor: '$gray200',
+  borderColor: '$borderColor',
   borderRadius: '$4',
   gap: '$3',
   elevate: true,
@@ -30,15 +30,15 @@ const StyledContent = styled(TamaguiDialog.Content, {
   variants: {
     variant: {
       default: {
-        backgroundColor: '$white',
-        borderColor: '$gray200',
+        backgroundColor: '$background',
+        borderColor: '$borderColor',
       },
       danger: {
-        backgroundColor: '$white',
+        backgroundColor: '$background',
         borderColor: '$red200',
       },
       info: {
-        backgroundColor: '$white',
+        backgroundColor: '$background',
         borderColor: '$primary200',
       },
     },
@@ -86,7 +86,7 @@ export function Dialog({
         <StyledContent key="content" variant={variant} size={size}>
           {title ? (
             <TamaguiDialog.Title unstyled>
-              <Text variant="h4" color="$gray900">
+              <Text variant="h4" color="$color12">
                 {title}
               </Text>
             </TamaguiDialog.Title>

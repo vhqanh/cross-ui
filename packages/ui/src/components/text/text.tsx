@@ -4,7 +4,7 @@ import { styled, Text as TamaguiText } from 'tamagui'
 export const Text: TamaguiComponent = styled(TamaguiText, {
   name: 'Text',
   fontFamily: '$body',
-  color: '$gray900',
+  color: '$color12',
 
   variants: {
     variant: {
@@ -16,17 +16,17 @@ export const Text: TamaguiComponent = styled(TamaguiText, {
       bodyLg: { fontSize: 17, fontWeight: '400', lineHeight: 28 },
       bodySm: { fontSize: 13, fontWeight: '400', lineHeight: 20 },
       label: { fontSize: 13, fontWeight: '500', lineHeight: 18 },
-      caption: { fontSize: 11, fontWeight: '400', lineHeight: 16, color: '$gray500' },
+      caption: { fontSize: 11, fontWeight: '400', lineHeight: 16, color: '$color10' },
       code: {
         fontFamily: '$body',
         fontSize: 13,
-        backgroundColor: '$gray100',
+        backgroundColor: '$color3',
         paddingHorizontal: '$1',
         borderRadius: '$1',
       },
     },
     muted: {
-      true: { color: '$gray500' },
+      true: { color: '$color10' },
     },
     bold: {
       true: { fontWeight: '700' },

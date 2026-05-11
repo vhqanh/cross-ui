@@ -21,10 +21,10 @@ const ButtonFrame: TamaguiComponent = styled(TamaguiButton, {
         pressStyle: { backgroundColor: '$primary700', borderColor: '$primary700', opacity: 0.9 },
       },
       secondary: {
-        backgroundColor: '$gray100',
-        borderColor: '$gray200',
-        hoverStyle: { backgroundColor: '$gray200' },
-        pressStyle: { backgroundColor: '$gray200', opacity: 0.9 },
+        backgroundColor: '$color3',
+        borderColor: '$borderColor',
+        hoverStyle: { backgroundColor: '$color4' },
+        pressStyle: { backgroundColor: '$color4', opacity: 0.9 },
       },
       outline: {
         backgroundColor: 'transparent',
@@ -35,8 +35,8 @@ const ButtonFrame: TamaguiComponent = styled(TamaguiButton, {
       ghost: {
         backgroundColor: 'transparent',
         borderColor: 'transparent',
-        hoverStyle: { backgroundColor: '$gray100' },
-        pressStyle: { backgroundColor: '$gray200', opacity: 0.9 },
+        hoverStyle: { backgroundColor: '$color3' },
+        pressStyle: { backgroundColor: '$color4', opacity: 0.9 },
       },
       danger: {
         backgroundColor: '$danger500',
@@ -78,9 +78,9 @@ const ButtonText = styled(Text, {
   variants: {
     variant: {
       primary: { color: '$white' },
-      secondary: { color: '$gray800' },
+      secondary: { color: '$color12' },
       outline: { color: '$primary600' },
-      ghost: { color: '$gray700' },
+      ghost: { color: '$color11' },
       danger: { color: '$white' },
       liquid: { color: '$white' },
     },

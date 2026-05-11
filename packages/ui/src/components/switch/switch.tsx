@@ -1,4 +1,21 @@
-import { Switch as TamaguiSwitch, Text, View, styled } from 'tamagui'
+import { Separator, Switch as TamaguiSwitch, XStack } from 'tamagui'
+import { Text } from '../text/text'
+
+export type SwitchVariant = 'default' | 'primary' | 'success' | 'danger'
+export type SwitchSize = 'sm' | 'md' | 'lg'
+
+const activeStyleMap: Record<SwitchVariant, { backgroundColor: string }> = {
+  default: { backgroundColor: '$color10' },
+  primary: { backgroundColor: '$primary500' },
+  success: { backgroundColor: '$green600' },
+  danger: { backgroundColor: '$red500' },
+}
+
+const sizeTokenMap: Record<SwitchSize, '$3' | '$4' | '$5'> = {
+  sm: '$3',
+  md: '$4',
+  lg: '$5',
+}
 
 export interface SwitchProps {
   checked?: boolean
@@ -6,25 +23,10 @@ export interface SwitchProps {
   onCheckedChange?: (checked: boolean) => void
   disabled?: boolean
   label?: string
-  size?: 'sm' | 'md'
-  variant?: 'default' | 'primary'
+  variant?: SwitchVariant
+  size?: SwitchSize
+  id?: string
 }
-
-const SwitchFrame = styled(TamaguiSwitch, {
-  name: 'Switch',
-  borderWidth: 1,
-  variants: {
-    variant: {
-      default: { backgroundColor: '$gray200', borderColor: '$gray300' },
-      primary: { backgroundColor: '$primary100', borderColor: '$primary400' },
-    },
-    switchSize: {
-      sm: { size: '$2' },
-      md: { size: '$3' },
-    },
-  } as const,
-  defaultVariants: { variant: 'default', switchSize: 'sm' },
-})
 
 export function Switch({
   checked,
@@ -32,27 +34,36 @@ export function Switch({
   onCheckedChange,
   disabled,
   label,
-  size = 'sm',
-  variant = 'default',
+  variant = 'primary',
+  size = 'md',
+  id,
 }: SwitchProps) {
+  const switchId = id ?? `switch-${size}-${variant}`
+
   return (
-    <View flexDirection="row" alignItems="center" gap="$2">
-      <SwitchFrame
+    <XStack width="100%" alignItems="center" gap="$4" opacity={disabled ? 0.5 : 1}>
+      {label ? (
+        <>
+          <Text variant="bodySm" color={disabled ? '$color8' : '$color12'} flex={1}>
+            {label}
+          </Text>
+          <Separator minHeight={20} vertical />
+        </>
+      ) : null}
+
+      <TamaguiSwitch
+        id={switchId}
         checked={checked}
         defaultChecked={defaultChecked}
         onCheckedChange={onCheckedChange}
         disabled={disabled}
-        switchSize={size}
-        variant={variant}
-        focusStyle={{ borderColor: '$primary500' }}
+        size={sizeTokenMap[size]}
+        transition="300ms"
+        activeStyle={activeStyleMap[variant]}
+        cursor="pointer"
       >
-        <TamaguiSwitch.Thumb backgroundColor="$white" />
-      </SwitchFrame>
-      {label ? (
-        <Text color={disabled ? '$gray400' : '$gray800'} fontSize={14}>
-          {label}
-        </Text>
-      ) : null}
-    </View>
+        <TamaguiSwitch.Thumb transition="quickest" />
+      </TamaguiSwitch>
+    </XStack>
   )
 }

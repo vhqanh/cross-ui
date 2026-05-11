@@ -3,10 +3,10 @@ import { styled, Card as TamaguiCard } from 'tamagui'
 
 export const Card: TamaguiComponent = styled(TamaguiCard, {
   name: 'Card',
-  backgroundColor: '$white',
+  backgroundColor: '$background',
   borderRadius: '$5',
   borderWidth: 1,
-  borderColor: '$gray100',
+  borderColor: '$borderColor',
 
   // Shadow
   shadowColor: '$black',
@@ -24,10 +24,10 @@ export const Card: TamaguiComponent = styled(TamaguiCard, {
       },
       flat: {
         shadowOpacity: 0,
-        borderColor: '$gray200',
+        borderColor: '$borderColor',
       },
       ghost: {
-        backgroundColor: '$gray50',
+        backgroundColor: '$color2',
         borderColor: 'transparent',
         shadowOpacity: 0,
       },
@@ -43,7 +43,7 @@ export const Card: TamaguiComponent = styled(TamaguiCard, {
         hoverStyle: {
           shadowOpacity: 0.12,
           shadowRadius: 16,
-          borderColor: '$gray200',
+          borderColor: '$borderColor',
           translateY: -2,
         },
       },
@@ -60,7 +60,7 @@ export const CardHeader: TamaguiComponent = styled(TamaguiCard.Header, {
   name: 'CardHeader',
   paddingBottom: '$4',
   borderBottomWidth: 1,
-  borderBottomColor: '$gray100',
+  borderBottomColor: '$borderColor',
   marginBottom: '$4',
 })
 
@@ -68,7 +68,7 @@ export const CardFooter: TamaguiComponent = styled(TamaguiCard.Footer, {
   name: 'CardFooter',
   paddingTop: '$4',
   borderTopWidth: 1,
-  borderTopColor: '$gray100',
+  borderTopColor: '$borderColor',
   marginTop: '$4',
 })
 

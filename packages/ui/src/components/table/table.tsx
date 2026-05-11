@@ -28,15 +28,15 @@ export function Table<T extends Record<string, unknown>>({
   return (
     <View
       borderWidth={1}
-      borderColor="$gray200"
+      borderColor="$borderColor"
       borderRadius="$4"
       overflow="hidden"
       {...containerStyle}
     >
       <View
-        backgroundColor="$gray50"
+        backgroundColor="$color2"
         borderBottomWidth={1}
-        borderBottomColor="$gray200"
+        borderBottomColor="$borderColor"
         {...headerStyle}
       >
         <View flexDirection="row">
@@ -48,7 +48,7 @@ export function Table<T extends Record<string, unknown>>({
               paddingVertical="$2.5"
               {...cellStyle}
             >
-              <Text variant="label" bold color="$gray700" textAlign={column.align ?? 'left'}>
+              <Text variant="label" bold color="$color11" textAlign={column.align ?? 'left'}>
                 {column.header}
               </Text>
             </View>
@@ -61,7 +61,7 @@ export function Table<T extends Record<string, unknown>>({
           key={index}
           flexDirection="row"
           borderBottomWidth={index === data.length - 1 ? 0 : 1}
-          borderBottomColor="$gray100"
+          borderBottomColor="$borderColor"
           {...rowStyle}
         >
           {columns.map((column) => (
@@ -75,7 +75,7 @@ export function Table<T extends Record<string, unknown>>({
               {column.render ? (
                 column.render(row, index)
               ) : (
-                <Text variant="bodySm" color="$gray800" textAlign={column.align ?? 'left'}>
+                <Text variant="bodySm" color="$color12" textAlign={column.align ?? 'left'}>
                   {String(row[column.key] ?? '')}
                 </Text>
               )}

@@ -1,72 +1,4 @@
-import { styled, RadioGroup as TamaguiRadioGroup, XStack } from 'tamagui'
-import { Text } from '../text/text'
-
-const StyledRadioGroup = styled(TamaguiRadioGroup, {
-  name: 'RadioGroup',
-
-  variants: {
-    orientation: {
-      horizontal: { flexDirection: 'row', flexWrap: 'wrap' },
-      vertical: { flexDirection: 'column' },
-    },
-    size: {
-      sm: { gap: '$2' },
-      md: { gap: '$3' },
-      lg: { gap: '$4' },
-    },
-  } as const,
-
-  defaultVariants: {
-    orientation: 'vertical',
-    size: 'md',
-  },
-})
-
-const StyledItem = styled(TamaguiRadioGroup.Item, {
-  name: 'RadioItem',
-  borderWidth: 1.5,
-  cursor: 'pointer',
-
-  variants: {
-    variant: {
-      default: {
-        borderColor: '$gray300',
-        backgroundColor: '$white',
-        focusStyle: { borderColor: '$primary500' },
-      },
-      primary: {
-        borderColor: '$primary400',
-        backgroundColor: '$primary50',
-        focusStyle: { borderColor: '$primary600' },
-      },
-    },
-    size: {
-      sm: { size: '$1.5' },
-      md: { size: '$2' },
-      lg: { size: '$2.5' },
-    },
-  } as const,
-
-  defaultVariants: {
-    variant: 'default',
-    size: 'md',
-  },
-})
-
-const StyledIndicator = styled(TamaguiRadioGroup.Indicator, {
-  name: 'RadioIndicator',
-
-  variants: {
-    variant: {
-      default: { backgroundColor: '$primary500' },
-      primary: { backgroundColor: '$primary600' },
-    },
-  } as const,
-
-  defaultVariants: {
-    variant: 'default',
-  },
-})
+import { Label, RadioGroup as TamaguiRadioGroup, XStack } from 'tamagui'
 
 export type RadioVariant = 'default' | 'primary'
 export type RadioSize = 'sm' | 'md' | 'lg'
@@ -89,6 +21,30 @@ export interface RadioGroupProps {
   orientation?: RadioOrientation
 }
 
+const sizeMap: Record<RadioSize, { item: number; font: '$4' | '$5' | '$6' }> = {
+  sm: { item: 18, font: '$4' },
+  md: { item: 22, font: '$5' },
+  lg: { item: 26, font: '$6' },
+}
+
+const variantStyleMap: Record<RadioVariant, object> = {
+  default: {
+    borderColor: '$borderColor',
+    backgroundColor: '$background',
+    checkedStyle: { borderColor: '$primary500' },
+  },
+  primary: {
+    borderColor: '$primary400',
+    backgroundColor: '$background',
+    checkedStyle: { borderColor: '$primary600' },
+  },
+}
+
+const indicatorStyleMap: Record<RadioVariant, object> = {
+  default: { backgroundColor: '$primary500' },
+  primary: { backgroundColor: '$primary600' },
+}
+
 export function RadioGroup({
   options,
   value,
@@ -99,45 +55,58 @@ export function RadioGroup({
   size = 'md',
   orientation = 'vertical',
 }: RadioGroupProps) {
+  const { item: itemSize, font: fontToken } = sizeMap[size]
+  const variantStyle = variantStyleMap[variant]
+  const indicatorStyle = indicatorStyleMap[variant]
+
   return (
-    <StyledRadioGroup
+    <TamaguiRadioGroup
       value={value}
       defaultValue={defaultValue}
       onValueChange={onValueChange}
       disabled={disabled}
-      orientation={orientation}
-      size={size}
+      flexDirection={orientation === 'horizontal' ? 'row' : 'column'}
+      flexWrap={orientation === 'horizontal' ? 'wrap' : undefined}
+      gap={size === 'sm' ? '$2' : size === 'md' ? '$3' : '$4'}
     >
       {options.map((option) => {
         const isDisabled = option.disabled || disabled
+        const id = `radio-${option.value}`
 
         return (
           <XStack
             key={option.value}
             alignItems="center"
-            gap="$2"
-            opacity={isDisabled ? 0.5 : 1}
+            gap="$3"
+            opacity={isDisabled ? 0.4 : 1}
             cursor={isDisabled ? 'not-allowed' : 'pointer'}
           >
-            <StyledItem
+            <TamaguiRadioGroup.Item
               value={option.value}
+              id={id}
               disabled={isDisabled}
-              variant={variant}
-              size={size}
-              id={option.value}
+              width={itemSize}
+              height={itemSize}
+              minWidth={itemSize}
+              borderWidth={1.5}
+              borderRadius={itemSize}
+              {...variantStyle}
             >
-              <StyledIndicator variant={variant} />
-            </StyledItem>
-            <Text
-              variant={size === 'sm' ? 'bodySm' : 'body'}
-              color={isDisabled ? '$gray400' : '$gray800'}
-              htmlFor={option.value}
+              <TamaguiRadioGroup.Indicator {...indicatorStyle} />
+            </TamaguiRadioGroup.Item>
+
+            <Label
+              size={fontToken}
+              htmlFor={id}
+              color="$color12"
+              cursor={isDisabled ? 'not-allowed' : 'pointer'}
+              fontWeight="400"
             >
               {option.label}
-            </Text>
+            </Label>
           </XStack>
         )
       })}
-    </StyledRadioGroup>
+    </TamaguiRadioGroup>
   )
 }

@@ -10,7 +10,7 @@ const BadgeFrame: TamaguiComponent = styled(View, {
 
   variants: {
     variant: {
-      default: { backgroundColor: '$gray100', borderColor: '$gray200' },
+      default: { backgroundColor: '$color3', borderColor: '$borderColor' },
       primary: { backgroundColor: '$primary100', borderColor: '$primary200' },
       success: { backgroundColor: '$success100', borderColor: '$success200' },
       warning: { backgroundColor: '$warning100', borderColor: '$warning200' },
@@ -31,7 +31,7 @@ const BadgeText = styled(Text, {
 
   variants: {
     variant: {
-      default: { color: '$gray700' },
+      default: { color: '$color11' },
       primary: { color: '$primary700' },
       success: { color: '$success600' },
       warning: { color: '$warning600' },
@@ -69,7 +69,7 @@ export function Badge({ children, variant, size = 'md', dot, ...rest }: BadgePro
                   ? '$warning600'
                   : variant === 'danger'
                     ? '$danger500'
-                    : '$gray400'
+                    : '$color9'
           }
         />
       )}

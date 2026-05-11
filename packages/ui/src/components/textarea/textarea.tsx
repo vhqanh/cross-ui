@@ -11,10 +11,10 @@ import { Text } from '../text/text'
 const TextareaFrame: TamaguiComponent = styled(TamaguiTextArea, {
   name: 'Textarea',
   fontFamily: '$body',
-  color: '$gray900',
-  backgroundColor: '$white',
+  color: '$color12',
+  backgroundColor: '$background',
   borderWidth: 1.5,
-  borderColor: '$gray200',
+  borderColor: '$borderColor',
   borderRadius: '$3',
   paddingHorizontal: '$3',
   paddingVertical: '$2',
@@ -28,16 +28,16 @@ const TextareaFrame: TamaguiComponent = styled(TamaguiTextArea, {
   variants: {
     variant: {
       default: {
-        borderColor: '$gray200',
-        backgroundColor: '$white',
+        borderColor: '$borderColor',
+        backgroundColor: '$background',
       },
       subtle: {
-        borderColor: '$gray200',
-        backgroundColor: '$gray50',
+        borderColor: '$borderColor',
+        backgroundColor: '$color2',
       },
       error: {
         borderColor: '$red400',
-        backgroundColor: '$white',
+        backgroundColor: '$background',
       },
     },
     size: {
@@ -70,7 +70,7 @@ export const Textarea = forwardRef<ElementRef<typeof TextareaFrame>, TextareaPro
     return (
       <View gap="$1.5" width="100%">
         {label ? (
-          <Text variant="label" color="$gray700">
+          <Text variant="label" color="$color11">
             {label}
           </Text>
         ) : null}
@@ -81,7 +81,7 @@ export const Textarea = forwardRef<ElementRef<typeof TextareaFrame>, TextareaPro
           </Text>
         ) : null}
         {helperText && !errorText ? (
-          <Text variant="caption" color="$gray500">
+          <Text variant="caption" color="$color10">
             {helperText}
           </Text>
         ) : null}
